@@ -1,0 +1,81 @@
+<div class="row ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+            <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                {{ @msg.text }}
+            </div>
+        </repeat>
+        <div class="card-body">
+            
+            <h4>Upload required documents</h4>
+            
+            <form class="form-apply" method="post" action="{{@BASE}}/{{@action}}" enctype="multipart/form-data">
+                <input type="hidden" name="job" value="{{@job->id}}" id="job_id" />
+                <input type="hidden" name="candidate" value="{{@SESSION.user_id}}" id="cand_id" />
+                <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+                <ul class="list-group margin-bottom-20 ">
+                    <repeat group="{{ @job->other_documents }}" key="{{@key}}" value="{{ @doc }}" counter="{{@count}}">
+                        <div class="input-group padding-top-5">
+                            <span class="input-group-text">
+                                {{@count}}
+                            </span>
+                            <input type="text"  class="form-control" readonly value="{{str_replace('ui/uploads/','', @doc)}}">
+                            <span class="input-group-text data-download" style="cursor: pointer;" data-url="{{@BASE}}/{{@doc}}">
+                                <i class="fa fa-download"></i>
+                            </span>
+                            <span class="input-group-text data-delete" style="cursor: pointer;" data-url="{{@BASE}}/{{@actionDelete}}/{{str_replace('/', '___',explode('.',@doc)[0])}}/{{explode('.',@doc)[1]}}">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                       </div>
+                    </repeat>
+                    
+                </ul>
+
+                <div class="form-group upload-resume">
+                    <div class="input-group padding-top-10">
+                        <input type="file" name="resume[]" required class="form-control" accept="image/*, .pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <span class="input-group-text group-icon" style="display: none; cursor: pointer;" id="basic-addon1">
+                            <i class="fa fa-minus"></i>
+                        </span>
+                   </div>
+                </div>
+                <div class="form-group" id="sign_button">
+                    <button type="button" class="btn btn-secondary btn-add">Add</button>
+                    <button type="submit" class="btn btn-secondary">Submit Application</button>
+                </div>  
+            </form>
+    
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        $('.btn-add').on('click', function(e){
+            var el=$('.upload-resume').children('div').clone();
+            $('.upload-resume').append(el[0])
+            $(el).children(".group-icon").css('display', 'block');
+            $(el).children(".group-icon").css('padding-top', '10px');
+            $(el).children('input[type=file]').trigger('click');
+            $(el).children(".group-icon").on('click', function(e){
+                $(this).closest('div').remove()
+            });
+        });
+
+        $(".data-download").on("click", function(e){
+            var file=$(this).attr('data-url');
+            window.open(file, "_blank");
+            // window.location.href=file;
+        })
+
+        $(".data-delete").on("click", function(e){
+            var file=$(this).attr('data-url');
+            // alert(file); return false;
+            window.location.href=file;
+            // window.location.href=file;
+        })
+        
+    });
+</script>

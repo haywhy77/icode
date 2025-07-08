@@ -1,0 +1,269 @@
+<div class="row">
+    <div class="col-12 col-lg-12">
+        
+
+        <div class="card">
+            <div class="widget invert widget--items-middle">
+                <div class="widget__icon_layer widget__icon_layer--right">
+                    <span class="li-folder-user"></span>
+                </div>
+                <div class="widget__container">
+                    <div class="widget__line">
+                        <div class="widget__icon">
+                            <span class="li-folder-user"></span>
+                        </div>
+                        <div class="widget__title">{{@client->names}}</div>
+                        <div class="widget__subtitle">{{@client->email}} | {{@client->phone}}</div>
+                    </div>
+                    <div class="widget__box">
+                        <check if="{{@SESSION.account=='ADMIN'}}">
+                            <true>
+                                <check if="{{@client->status=='ACTIVE'}}">
+                                    <true>
+                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">Post Staff</button>
+                                        <div class="btn-group">
+                                            <button class="btn btn-danger btn-block btn--icon btn--icon-stacked btn--icon-right"data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <span class="fa fa-ellipsis-v"></span></button>
+                                            <div class="dropdown-menu">
+                                                
+                                                <check if="{{@client->status=='ACTIVE'}}">
+                                                    <true>
+                                                        <a class="dropdown-item client-action" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to DEACTIVATE this employer account?" data-client="{{@client->id}}" data-action="{{@BASE}}/employers/action/update" data-todo="DEACTIVATED">Deactivate</a>
+                                                    </true>
+                                                </check>
+                                                <check if="{{@client->status=='ACTIVE'}}">
+                                                    <false>
+                                                        <a class="dropdown-item client-action" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to ACTIVATE this employer account?" data-client="{{@client->id}}" data-action="{{@BASE}}/employers/action/update" data-todo="ACTIVE">Activate</a>
+                                                    </false>
+                                                </check>
+                                                
+                                                
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item client-action" href="#" data-bs-toggle="modal" data-bs-target="#employModal" data-text="You are about to DELETE this employer account. Do you want to continue?" data-client="{{@client->id}}" data-action="{{@BASE}}/employers/action/update" data-todo="DELETED">Trash Account</a>
+                                            </div>
+                                        </div>
+                                    </true>
+                                    <false>
+                                        <button type="button" class="btn btn-secondary btn-lg client-action" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="You are about to ACTIVATE this employer account. Do you want to continue?" data-client="{{@client->id}}" data-action="{{@BASE}}/employers/action/update" data-todo="ACTIVE">Activate Employer</button>
+                                    </false>
+                                </check>
+                            </true>
+                        </check>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                
+                <div class="table-responsive">
+                    <table class="table table-indent-rows margin-bottom-0 data-staff">
+                        <thead>
+                            <tr>
+                                <th width="100">
+                                    <label class="form-check-label">S/N</label>
+                                </th>
+                                <th>Name</th>
+                                <th >Email</th>
+                                <th width="200">Contact Number</th>
+                                <th width="200">Phone</th>
+                                <th width="200">Employment Type</th>
+                                <th width="150">Status</th>
+                                <th width="120">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @staff.data }}" key="{{@key}}" value="{{ @company }}" counter="{{@count}}">
+                                <tr>
+                                    <td><label class="form-check-label">{{@count}}</label></td>
+                                    <td>
+                                        <strong>{{@company.names}}</strong>
+                                    </td>
+                                    <td>{{@company.email}}</td>
+                                    <td>{{@company.phone}}</td>
+                                    <td>{{@company.employment_type}}</td>
+                                    <td>{{@company.phone}}</td>
+                                    <td>
+                                        <div class="btn {{@company.status=='ACTIVE'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@company.status}}</div>
+                                    </td>
+                                    <td>
+                                        <check if="{{@SESSION.account=='ADMIN'}}">
+                                            <true>
+                                                <!-- <button class="btn btn-secondary btn-sm btn-icon {{@client->status!='ACTIVE'?'disabled':''}}"><span class="fa fa-eye"></span></button> -->
+                                                <button class="btn btn-danger btn-sm btn-icon delete {{@client->status!='ACTIVE'?'disabled':''}}" data-client="{{@company.clt}}" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to detach {{@company.names}} from this {{@client->names}}?" data-action="{{@BASE}}/employers/staff/remove"><span class="fa fa-trash"></span></button>
+                                            </true>
+                                            <false>
+                                                <button class="btn btn-secondary btn-sm btn-click{{@client->status!='ACTIVE'?'disabled':''}}" data-href="{{@BASE}}/candidates/{{@company.id}}">View Profile</button>
+                                            </false>
+                                        </check>
+                                        
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@staff}}, url='/employers/{{@client->id}}'" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form method="post" action="{{@BASE}}/employers/{{@client->id}}/post-staff">
+            <input class="record" type="hidden" name="record" />
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Staff Posting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <input type="text" class="form-control search" name="search" placeholder="Search with staff name">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-indent-rows margin-bottom-0 search-record">
+                            
+                            <tbody>
+                                <repeat group="{{ @staffs }}" key="{{@key}}" value="{{ @staf }}" counter="{{@count}}">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">{{@count}}</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <strong>{{@staf['names']}}</strong>
+                                        </td>
+                                        <td>{{@staf["email"]}}</td>
+                                        <td>{{@staf["phone"]}}</td>
+                                        <td>{{@staf["employment_type"]}}</td>
+                                        <td>
+                                            <div class="btn {{@staf["status"]=='ACTIVE'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@staf["status"]}}</div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-submit" data-client="{{@client->id}}" data-staff="{{@staf["id"]}}" data-url="{{@BASE}}/">Select</button>
+                                        </td>
+                                    </tr>
+                                </repeat>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label>Resumption Date</label>
+                            <input type="date" name="date" class="form-control" style="width: 250px;" required="required">
+                            <span class="form-text margin-top-0">Enter the date for interview</span>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <label>Resumption Time</label>
+                            <input type="time" name="time" class="form-control" style="width: 250px;" required="required">
+                            <span class="form-text margin-top-0">Enter the time</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Roles</label>
+                        <select class="form-control" aria-hidden="true" name="role" required >
+                            <repeat group="{{ @roles }}" key="{{@key}}" value="{{ @role }}">
+                                <option value="{{@role.name}}">{{@role.name}}</option>
+                            </repeat>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type of Employment</label>
+                        <select class="form-control" aria-hidden="true" name="location" required >
+                            <option value="ONSITE">ONSITE</option>
+                            <option value="REMOTE">REMOTE</option>
+                            <option value="HYBRID">HYBRID</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Post Staff</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{@BASE}}/employers/staff/remove" method="post">
+            <input class="client_user_id" type="hidden" name="client_user_id"/>
+            <input class="client_action" type="hidden" name="client_action"/>
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Warning!!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body alert-body-text"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes, continue</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+     document.addEventListener("DOMContentLoaded", function () {
+        $(".search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".search-record > tbody > tr").filter(function() {      
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        $(".search-record > tbody > tr >td>button").on("click", function() {  
+            let rec=$(".record").val();
+            let records=rec? JSON.parse(rec):[];
+            console.log("Before: ", records)
+            var client = $(this).attr("data-client");
+            var staff = $(this).attr("data-staff");
+            var url = $(this).attr("data-url");
+            const obj={client, staff, url}
+            if(records.length>0){
+                const index=records.findIndex(x=>x.client==client && x.staff==staff);
+                if(index >- 1){
+                    records.splice(index, 1);
+                    $(".record").val(JSON.stringify(records));
+                    $(this).removeClass('btn-success').addClass('btn-secondary').text("Select");
+                    return false;
+                }
+            }
+            records.push(obj)
+            console.log("After: ", records)
+            $(".record").val(JSON.stringify(records));
+            $(this).removeClass('btn-secondary').addClass('btn-success').text("Selected")
+        });
+    
+        $(".data-staff > tbody > tr >td>button.delete").on("click", function() { 
+            var value = $(this).attr("data-client");
+            var text = $(this).attr("data-text");
+            var action = $(this).attr("data-action");
+            $('.alert-body-text').html(text);
+            $('.alert-body-text').closest("form").attr('action', action);
+            $(".client_user_id").val(value);
+        })
+
+        $(".client-action").on("click", function() { 
+            var value = $(this).attr("data-client");
+            var text = $(this).attr("data-text");
+            var action = $(this).attr("data-action");
+            var todo = $(this).attr("data-todo");
+            $('.alert-body-text').html(text);
+            $('.alert-body-text').closest("form").attr('action', action);
+            $(".client_user_id").val(value);
+            $(".client_action").val(todo)
+        })
+    });
+    
+</script>

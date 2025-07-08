@@ -1,0 +1,303 @@
+<div class="row ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <check if="{{isset(@application) && @application->id}}">
+                <true>
+                    <h4 id="rw-fl-row">Update Job Posting: {{@application->job_title}}</h4>
+                </true>
+                <false>
+                    <h4 id="rw-fl-row">New Job Posting</h4>
+                </false>
+            </check>
+            
+            <p class="subtitle margin-bottom-20">Fill the form to post a new job vacancy</p>
+            <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+                <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                    {{ @msg.text }}
+                </div>
+            </repeat>
+            <form method="post" action="{{@BASE}}{{@form.action}}" class="job_post">
+                <input type="hidden" name="emp_name" value="{{@SESSION.user_id}}" />
+                <input type="hidden" name="action" value="save" />
+                <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+                <check if="{{isset(@application) && @application->id}}">
+                    <true>
+                        <input type="hidden" name="id" value="{{@application->id}}" />
+                        <input type="hidden" name="action" value="update" />
+                    </true>
+                </check>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select name="category" class="form-control" required>
+                        <option>Not Specified</option>
+                        <option value="HEALTH" {{isset(@application) && @application->category=='HEALTH'?'selected="selected"':''}}</option>Health</option>
+                        <option value="EDUCATION" {{isset(@application) && @application->category=='EDUCATION'?'selected="selected"':''}}>Education</option>
+                        <option value="OTHERS" {{isset(@application) && @application->category=='OTHERS'?'selected="selected"':''}}>Others</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select the category of the job</span>
+                </div>
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" name="title" class="form-control" required="required" value="{{isset(@application) && @application->job_title?@application->job_title:''}}">
+                    <span class="form-text margin-top-0">Enter the title of the Job</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Job Field:</label>
+                    <select name='job' class='form-control' required>
+                        <option value="" selected="selected">Select Job Field</option>
+                        <repeat group="{{ @job.fields }}" key="{{@key}}" value="{{ @field }}" counter="{{@count}}">
+                            <option value="{{@field["id"]}}" {{isset(@application) && @application->job_field==@field["id"]?'selected="selected"':''}}>{{@field["name"]}}</option>
+                        </repeat>
+                    </select>
+                    <span class="form-text margin-top-0">Select the job field</span>
+                </div>
+                <div class="form-group">
+                    <label>Select Location:</label>
+                    <select name="location" class="form-control" required>
+                        <option value="" selected="selected">-Select-</option>
+                        <repeat group="{{ @job.locations }}" key="{{@key}}" value="{{ @location }}" counter="{{@count}}">
+                            <option value="{{@location["id"]}}" {{isset(@application) && @application->location==@location["id"]?'selected="selected"':''}}>{{@location["name"]}}</option>
+                        </repeat>
+                    </select>
+                    <span class="form-text margin-top-0">Select Location for Job</span>
+                </div>
+                <div class="form-group">
+                    <label>Salary Range</label>
+                    <input type="text" name="salary" class="form-control" required="required" placeholder="e.g &euro;1000 - &euro;3000" value="{{isset(@application) && @application->salary_range?@application->salary_range:''}}">
+                    <span class="form-text margin-top-0">Enter the salary range for the job</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Job Type:</label>
+                    <select name="job_type" class="form-control" required>
+                        <option value="-Selected-" selected="selected">-Select-</option>
+                        <option value="Full-Time" {{isset(@application) && @application->job_type=='Full-Time'?'selected="selected"':''}}>Full-Time</option>
+                        <option value="Part-Time" {{isset(@application) && @application->job_type=='Part-Time'?'selected="selected"':''}}>Part-Time</option>
+                        <option value="Varied" {{isset(@application) && @application->job_type=='Varied'?'selected="selected"':''}}>Varied</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select the Job type</span>
+                </div>
+                <div class="form-group">
+                    <label>Job Site:</label>
+                    <select name="job_site" class="form-control" required>
+                        <option value="-Selected-" selected="selected">-Select-</option>
+                        <option value="On-Site" {{isset(@application) && @application->job_site=='On-Site'?'selected="selected"':''}}>On-Site</option>
+                        <option value="Remote" {{isset(@application) && @application->job_site=='Remote'?'selected="selected"':''}}>Remote</option>
+                        <option value="Hybrid" {{isset(@application) && @application->job_site=='Hybrid'?'selected="selected"':''}}>Hybrid</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select the Job type</span>
+                </div>
+                <div class="form-group">
+                    <label>Job Duration:</label>
+                    <select name="job_duration" class="form-control" required>
+                        <option value="-Selected-" selected="selected">-Select-</option>
+                        <option value="Permanent Role" {{isset(@application) && @application->job_duration=='Permanent Role'?'selected="selected"':''}}>Permanent Role</option>
+                        <option value="Contract Role" {{isset(@application) && @application->job_duration=='Contract Role'?'selected="selected"':''}}>Contract Role</option>
+                        <option value="Temporary Role" {{isset(@application) && @application->job_duration=='Temporary Role'?'selected="selected"':''}}>Temporary Role</option>
+                        <option value="Varied" {{isset(@application) && @application->job_duration=='Varied'?'selected="selected"':''}}>Varied</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select the Job type</span>
+                </div>
+                <div class="form-group">
+                    <label>Gender Required:</label>
+                    <select name="job_gender" class="form-control" required>
+                        <option value="Not Specified">Not Specified</option>
+                        <option value="Male" {{isset(@application) && @application->gender=='Male'?'selected="selected"':''}}>Male</option>
+                        <option value="Female" {{isset(@application) && @application->gender=='Female'?'selected="selected"':''}}>Female</option>
+                        <option value="Any" {{isset(@application) && @application->gender=='Any'?'selected="selected"':''}}>Any</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select the Gender type</span>
+                </div>
+                <div class="form-group">
+                    <label>Qualifications:</label>
+                    
+                    <select id="s2-custom" name="qualifications[]" class="form-control" multiple="multiple">
+                        <option value="GCSE or its equivalent" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'GCSE or its equivalent') !=false?'selected="selected"':''}}>GCSE or its equivalent</option>
+                        <option value="A Level" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'A Level') !=false?'selected="selected"':''}}>A Level</option>
+                        <option value="International Baccalaureate Diploma or its equivalent" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'International Baccalaureate Diploma or its equivalent') !=false?'selected="selected"':''}}>International Baccalaureate Diploma or its equivalent</option>
+                        <option value="NVQ Levels 1 & 2" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'NVQ Levels 1 & 2') !=false?'selected="selected"':''}}>NVQ Levels 1 & 2</option>
+                        <option value="NVQ 3 or its equivalent" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'NVQ 3 or its equivalent') !=false?'selected="selected"':''}}>NVQ 3 or its equivalent</option>
+                        <option value="Level 3 Teaching Course" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'Level 3 Teaching Course') !=false?'selected="selected"':''}}>Level 3 Teaching Course</option>
+                        <option value="Level 5 DTLLS Course" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'Level 5 DTLLS Course') !=false?'selected="selected"':''}}>Level 5 DTLLS Course</option>
+                        <option value="Level 4 CTLLS Course" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'Level 4 CTLLS Course') !=false?'selected="selected"':''}}>Level 4 CTLLS Course</option>
+                        <option value="Level 5 Leadership in Adult Social Care" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'Level 5 Leadership in Adult Social Care') !=false?'selected="selected"':''}}>Level 5 Leadership in Adult Social Care</option>
+                        <option value="BACHELOR DEGREE" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'BACHELOR DEGREE') !=false?'selected="selected"':''}}>BACHELOR'S DEGREE</option>
+                        <option value="MASTERS DEGREE" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'MASTERS DEGREE') !=false?'selected="selected"':''}}>MASTER'S DEGREE</option>
+                        <option value="PHD" {{isset(@application) && @application->qualifications && strpos(@application->qualifications, 'PHD') !=false?'selected="selected"':''}}>PhD</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select the the required qualifications for this role</span>
+                </div>
+                <div class="form-group">
+                    <label>Skills Required:</label>
+                    
+                    <select id="s2-custom2" name="skills[]" class="form-control" multiple="multiple">
+                        <repeat group="{{ @job.skills }}" value="{{ @skill }}">
+                            <option value="{{@skill.name}}" {{isset(@application) && strpos(@application->skills, @skill.name) !=false?'selected="selected"':''}}>{{@skill.name}}</option>
+                        </repeat>
+                    </select>
+                    <span class="form-text margin-top-0">Select the the required skills for this role</span>
+                </div>
+                <div class="form-group">
+                    <label>Course Training:</label>
+                    
+                    <select id="s2-custom2" name="courses[]" class="form-control" multiple="multiple">
+                        <repeat group="{{ @job.courses }}" value="{{ @course }}">
+                            <option value="{{@course.name}}" {{isset(@application) && strpos(@application->course_training, @course.name) !=false?'selected="selected"':''}}>{{@course.name}}</option>
+                        </repeat>
+                    </select>
+                    <span class="form-text margin-top-0">Select the the required skills for this role</span>
+                </div>
+                <div class="form-group">
+                    <label>About Company</label>
+                    
+
+                    <div>
+                        <div class="main-container">
+                            <div class="editor-container editor-container_document-editor editor-container_include-style" id="editor-container">
+                                <div class="editor-container__menu-bar" id="about_company-menu-bar"></div>
+                                <div class="editor-container__toolbar" id="about_company-toolbar"></div>
+                                <div class="editor-container__editor-wrapper">
+                                    <div class="editor-container__editor">
+                                        <div id="editor" class="my-editor" data-name="about_company"> {{isset(@application) && @application->about_company?@application->about_company:''}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <span  class="form-text"> Enter a summary about the company</span> 
+                </div> 
+                
+                <div class="form-group">
+                    <label>Job Description</label>
+
+                    <div>
+                        <div class="main-container">
+                            <div class="editor-container editor-container_document-editor editor-container_include-style" id="editor-container">
+                                <div class="editor-container__menu-bar" id="job_desc-menu-bar"></div>
+                                <div class="editor-container__toolbar" id="job_desc-toolbar"></div>
+                                <div class="editor-container__editor-wrapper">
+                                    <div class="editor-container__editor">
+                                        <div id="editor1" class="my-editor" data-name="job_desc"> {{isset(@application) && @application->job_desc?@application->job_desc:''}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span  class="form-text"> Enter a summary about the job description</span> 
+                </div> 
+                
+                <div class="form-group">
+                    <label>Job Requirements</label>
+                    <div>
+                        <div class="main-container">
+                            <div class="editor-container editor-container_document-editor editor-container_include-style" id="editor-container">
+                                <div class="editor-container__menu-bar" id="job_requirement-menu-bar"></div>
+                                <div class="editor-container__toolbar" id="job_requirement-toolbar"></div>
+                                <div class="editor-container__editor-wrapper">
+                                    <div class="editor-container__editor">
+                                        <div id="editor2" class=" my-editor" data-name="job_requirement"> {{isset(@application) && @application->job_requirement?@application->job_requirement:''}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span  class="form-text"> Enter the job requirements</span> 
+                </div> 
+                
+                <div class="form-group">
+                    <label>Other Requirements</label>
+                    <select id="s2-custom" name="other_requirements[]" class="form-control" multiple="multiple">
+                        <option value="Own car desirable" {{isset(@application) && @application->other_requirements && strpos(@application->other_requirements, 'Own car desirable') !=false?'selected="selected"':''}}>Own car desirable</option>
+                        <option value="Qualified Teaching Status" {{isset(@application) && @application->other_requirements && strpos(@application->other_requirements, 'Qualified Teaching Status') !=false?'selected="selected"':''}}>Qualified Teaching Status</option>
+                        <option value="Able to work every weekend" {{isset(@application) && @application->other_requirements && strpos(@application->other_requirements, 'Able to work every weekend') !=false?'selected="selected"':''}}>Able to work every weekend</option>
+                        <option value="Able to work every other weekend" {{isset(@application) && @application->other_requirements && strpos(@application->other_requirements, 'Able to work every other weekend') !=false?'selected="selected"':''}}>Able to work every other weekend</option>
+                        
+                    </select>
+                    <span  class="form-text"> Enter other job requirements</span> 
+                </div> 
+                
+                <div class="form-group">
+                    <label>Is job still ongoing?:</label>
+                    <select id="s2-custom" name="job_status" class="form-control job_status">
+                        <option value="Close Job on Date" {{isset(@application) && @application->job_status && strpos(@application->job_status, 'Close Job on Date') !=false?'selected="selected"':''}}>Close Job on Date</option>
+                        <option value="Ongoing" {{isset(@application) && @application->job_status && strpos(@application->job_status, 'Ongoing') !=false?'selected="selected"':''}}>Ongoing</option>
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Job Close Date</label>
+                    <input type="date" name="close_date" class="form-control" id="close_date" style="width: 250px;" required="required" value="{{isset(@application) && @application->job_close_date?@application->job_close_date:''}}">
+                    <span class="form-text margin-top-0">Enter the close date for the job</span>
+                </div>
+                <hr/>
+                
+                <div class="form-group" id="sign_button">
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </div>
+            </form>
+    
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        
+        var maxDate = year + '-' + month + '-' + day;
+        $('#close_date').attr('min', maxDate);
+
+
+        $("#s2-custom, #s2-custom2").select2({
+            tags: true,
+            createTag: function (params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
+                }
+
+                // term += "(new)";
+
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                }
+            }
+        });
+        $(".job_status").on('change', function(){
+            var val=$(this).val();
+            if(val=='Ongoing'){
+                $('#close_date').attr('required', false).closest('div').hide();
+            }else{
+                $('#close_date').attr('required', 'required').closest('div').show()
+
+            }
+        })
+
+        $( '.job_post' ).submit( function( e ) {
+            $(".my-editor").each(function(){
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", $(this).attr('data-name'));
+                input.setAttribute("value", $(this).html());
+                
+                document.querySelector(".job_post").appendChild(input);
+            })
+        })
+    })
+</script>

@@ -1,0 +1,150 @@
+<div class="row">
+    <div class="col-12 col-lg-12">
+
+        
+        <div class="card">
+            <div class="widget invert widget--items-middle">
+                <div class="widget__icon_layer widget__icon_layer--right">
+                    <span class="li-user"></span>
+                </div>
+                <div class="widget__container">
+                    <div class="widget__line">
+                        <div class="widget__icon">
+                            <span class="li-user"></span>
+                        </div>
+                        <div class="widget__title">Applicant Hunts</div>
+                        <div class="widget__subtitle">Applicant scouts by employers</div>
+                    </div>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>
+                            <div class="widget__box">
+                                <button class="btn btn-secondary btn-lg btn-click" data-href="{{@BASE}}/candidates">Hunt Applicants</button>
+                            </div>
+                        </true>
+                    </check>
+                    
+                </div>
+            </div>
+            <div class="card-body">
+                
+                
+                <div class="table-responsive">
+                    <table class="table table-indent-rows margin-bottom-0 data-staff">
+                        <thead>
+                            <tr>
+                                <th width="100"><label class="form-check-label">#</label></th>
+                                <th width="200">Date</th>
+                                <check if="{{@SESSION.account=='ADMIN'}}">
+                                    <true><th>Employer</th></true>
+                                </check>
+                                
+                                <th >Applicant</th>
+                                <th >Remark</th>
+                                <th width="150">Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @hunts.data }}" key="{{@key}}" value="{{ @hunt }}" counter="{{@count}}">
+                                <tr>
+                                    <td>{{@count}}</td>
+                                    <td>{{@hunt.created_at}}</td>
+                                    <check if="{{@SESSION.account=='ADMIN'}}">
+                                        <true>
+                                            <td><a href="{{@BASE}}/employers/{{@hunt.client_id}}" class="text-danger text-bold">{{@hunt.client}}</a></td>
+                                        </true>
+                                    </check>
+                                    
+                                    <td><a href="{{@BASE}}/candidates/{{@hunt.cand_id}}" class="text-danger text-bold">{{@hunt.cand}}</a></td>
+                                    <td>{{@hunt.remark}}</td>    
+                                    <td>
+                                        <button class="btn btn-outline-{{@hunt.status=='APPROVE'?'success':(@hunt.status=='REJECTED'?'danger':'warning')}} btn-block btn-sm">{{@hunt.status}}</button>
+                                    </td>
+                                    
+                                    <td>
+                                        
+                                        <check if="{{@SESSION.account=='ADMIN'}}">
+                                            <true>
+                                                <button class="btn btn-secondary btn-sm delete" data-client="{{@hunt.id}}"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to approve and post this applicant?" data-todo="APPROVE">Approve Hunt</button>
+
+                                                <button class="btn btn-secondary btn-sm delete" data-client="{{@hunt.id}}" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to reject this request?" data-todo="REJECTED">Reject Hunt</button>
+                                               
+                                            </true>
+                                        </check>
+                                        <button class="btn btn-secondary btn-icon btn-sm delete" data-client="{{@hunt.id}}" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to delete this request?" data-todo="DELETE"><span class="fa fa-trash"></span></button>
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@hunts}}, url=/messaging/hunts" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{@BASE}}/messaging/update/hunts" method="post">
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <input class="hunt_id" type="hidden" name="hunt_id"/>
+            <input class="hunt_action" type="hidden" name="hunt_action"/>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Warning!!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body alert-body-text"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-process">Yes, continue</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        $(".data-staff > tbody > tr >td>button.delete").on("click", function() { 
+            var value = $(this).attr("data-client");
+            var text = $(this).attr("data-text");
+            var action = $(this).attr("data-todo");
+            $('.alert-body-text').html(text);
+            // $('.alert-body-text').closest("form").attr('action', action);
+            $(".hunt_id").val(value);
+            $(".hunt_action").val(action)
+        })
+
+        $(".btn-process").on("click", function(){
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            var form=$(this).closest("form");
+            var url=form.attr("action");
+            
+            $.post(url, form.serializeArray(), function(data, error){
+                
+                if(!data.status){
+                    $(".alert-header").removeClass(" alert alert-success").addClass(" alert alert-danger");
+                }else{
+                    $(".alert-header").removeClass(" alert alert-danger").addClass(" alert alert-success");
+                }
+                $(".alert-header-text").html(data.message)
+            
+                setTimeout(function(){
+                    app._loading.hide($(".modal-dialog"));
+                },2000);
+                setTimeout(function(){
+                    $(".btn-closes").trigger( "click" );
+                    window.location.reload();
+                }, 200)
+                
+            });
+            
+        })
+    });
+    
+</script>

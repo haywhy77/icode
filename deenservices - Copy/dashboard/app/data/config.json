@@ -1,0 +1,200 @@
+{"ADMIN":
+    [
+        {
+            "name": "dashboard",
+            "label": "Dashboard",
+            "type": "simple",
+            "url": "/",
+            "icon": "home"
+        },
+        {
+            "name": "applicants",
+            "label": "Applicants Management",
+            "type": "simple",
+            "icon": "users",
+            "url": "/candidates"
+        },
+        {
+            "name": "applications",
+            "label": "Applications",
+            "type": "simple",
+            "icon": "users",
+            "url": "/applications"
+        },
+        {
+            "name": "jobs",
+            "label": "Job Posting",
+            "type": "complex",
+            "icon": "document",
+            "child":[
+                {
+                    "name": "category",
+                    "label": "Job Fields",
+                    "type": "simple",
+                    "url": "/jobs/fields"
+                },
+                
+                {
+                    "name": "locations",
+                    "label": "Job Locations",
+                    "type": "simple",
+                    "url": "/jobs/locations"
+                },
+                {
+                    "name": "job_skills",
+                    "label": "Skills",
+                    "type": "simple",
+                    "url": "/jobs/skills"
+                },
+                {
+                    "name": "post_job",
+                    "label": "Post Job",
+                    "type": "simple",
+                    "url": "/jobs/new"
+                },
+                {
+                    "name": "manage",
+                    "label": "Manage Job Postings",
+                    "type": "simple",
+                    "url": "/jobs"
+                }
+            ]
+        },
+        
+        {
+            "name": "staff",
+            "label": "Staff Management",
+            "type": "simple",
+            "url": "/staff",
+            "icon": "group-work"
+        },
+        {
+            "name": "messaging",
+            "label": "Messaging",
+            "type": "complex",
+            "icon": "envelope",
+            "child":[
+                {
+                    "name": "compose",
+                    "label": "Compose",
+                    "type": "simple",
+                    "url": "/messaging/compose"
+                },
+                
+                {
+                    "name": "hunt",
+                    "label": "Applicant Hunt",
+                    "type": "simple",
+                    "url": "/applicant/hunts"
+                }
+            ]
+        },
+        {
+            "name": "companies",
+            "label": "Employers Management",
+            "type": "simple",
+            "url": "/employers",
+            "icon": "laptop-phone"
+        },
+        
+        {
+            "name": "users",
+            "label": "Admin Users",
+            "type": "simple",
+            "url": "/users",
+            "icon": "user"
+        }
+    ],
+"USER":[
+    {
+        "name": "dashboard",
+        "label": "Overview",
+        "type": "simple",
+        "url": "/",
+        "icon": "home"
+    },
+    {
+        "name": "applicantions",
+        "label": "My Applications",
+        "type": "simple",
+        "icon": "users",
+        "url": "/my-applications"
+    },
+    {
+        "name": "jobs",
+        "label": "Opened Positions",
+        "type": "simple",
+        "icon": "papers",
+        "url": "/job-listing"
+    },
+    {
+        "name": "jouploadbs",
+        "label": "Upload documents",
+        "type": "simple",
+        "icon": "cloud-upload",
+        "url": "/candidate/upload-documents"
+    }
+],
+"CLIENT":[
+    {
+        "name": "dashboard",
+        "label": "Overview",
+        "type": "simple",
+        "url": "/",
+        "icon": "home"
+    },
+    {
+        "name": "staff",
+        "label": "My Staff",
+        "type": "simple",
+        "icon": "user",
+        "url": "/employers/staff"
+    },
+    {
+        "name": "jobs",
+        "label": "Job Posting",
+        "type": "complex",
+        "icon": "document",
+        "child":[
+            {
+                "name": "category",
+                "label": "Job Fields",
+                "type": "simple",
+                "url": "/jobs/fields"
+            },
+            
+            {
+                "name": "locations",
+                "label": "Job Locations",
+                "type": "simple",
+                "url": "/jobs/locations"
+            },
+            {
+                "name": "job_skills",
+                "label": "Skills",
+                "type": "simple",
+                "url": "/jobs/skills"
+            },
+            {
+                "name": "post_job",
+                "label": "Post Job",
+                "type": "simple",
+                "url": "/jobs/new"
+            },
+            {
+                "name": "manage",
+                "label": "Manage Job Postings",
+                "type": "simple",
+                "url": "/jobs"
+            }
+        ]
+    },
+    {
+        "name": "hunt",
+        "label": "Applicant Hunt",
+        "type": "simple",
+        "icon": "user",
+        "url": "/applicant/hunts"
+    }
+]
+}

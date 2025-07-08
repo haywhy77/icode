@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>DeenConsult | Signup </title>
+	<link rel="stylesheet" href="{{@BASE}}/{{@ASSETS}}css/styles.css">
+	<link rel="stylesheet" href="../assets/css/style-freedom.css">
+    <link rel="icon" href="../assets/images/logo2.png">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+    <section class="w3l-price-2 w3l-register-block">
+        <div class="price-main w3l-register-block-main">
+            <div class="wrapper">
+                <div class="pricing-style-w3ls">
+                    
+                    <fieldset class="w3l-forms-31-right" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+                        <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+                            <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                                {{ @msg.text }}
+                            </div>
+                        </repeat>
+                        
+                        <p>
+                            <strong>Congratulations! Your registration has been confirmed.</strong>
+                        </p>
+                        <p><strong>Thank you for signing up!</strong></p>
+                        <p>Kindly login to complete your profile so that you can apply for job openings as roles are constantly opened.</p>
+                        <p>
+                            Meanwhile, You will now receive messages from us as regards your applications and be able to track your application progress.<br>
+                            
+                            Please kindly add our email address to your address book or contacts to ensure that our future emails will be propedy delivered to your inbox.
+
+                        </p>
+                        <br>
+                        <p>
+                            <a href="{{@BASE}}/" class="btn btn-primary">Proceed to Login</a>
+                        </p>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery-migrate.min.js"></script>
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- move top -->
+	<button onclick="topFunction()" id="movetop" title="Go to top">
+		<span class="fa fa-angle-up"></span>
+	</button>
+	<script>
+		// When the user scrolls down 20px from the top of the document, show the button
+		window.onscroll = function () {
+			scrollFunction()
+		};
+
+		function scrollFunction() {
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				document.getElementById("movetop").style.display = "block";
+			} else {
+				document.getElementById("movetop").style.display = "none";
+			}
+		}
+
+		// When the user clicks on the button, scroll to the top of the document
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+	</script>
+	<!-- /move top -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            $('#check').click(function() {
+                if ($(this).is(':checked')) {
+                    $('#submit').removeAttr('disabled');
+                } else {
+                    $('#submit').attr('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

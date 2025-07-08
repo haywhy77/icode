@@ -1,0 +1,24 @@
+{
+	"name": "bcosca/fatfree",
+	"description": "A powerful yet easy-to-use PHP micro-framework designed to help you build dynamic and robust Web applications - fast!",
+	"homepage": "http://fatfreeframework.com/",
+	"license": "GPL-3.0-or-later",
+	"require": {
+		"php": ">=5.3.0",
+		"phpmailer/phpmailer": "^6.9",
+		"bcosca/fatfree-core": "^3.8",
+		"ikkez/f3-cortex": "^1.7",
+        "ikkez/f3-flash": "^1.0",
+        "ikkez/f3-assets": "^1.2",
+        "ikkez/f3-pagination": "^1.4",
+		"ikkez/f3-schema-builder": "^2.2",
+		"smalot/pdfparser": "^2.10",
+		"dompdf/dompdf": "^3.0"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/bcosca/fatfree"
+		}
+	]
+}

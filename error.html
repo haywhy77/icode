@@ -1,0 +1,89 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from p.w3layouts.com/demos_new/template_demo/03-03-2022/finagency-liberty-demo_Free/209759279/web/error.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 07 Jul 2025 12:50:46 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FinAgenc - Corporate Category Bootstrap Responsive Template | 404 :: W3layouts</title>
+    <!--/google-fonts -->
+    <link href="http://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,700&amp;display=swap" rel="stylesheet">
+    <!--//google-fonts -->
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/style-liberty.css">
+</head>
+<!--/Header-->
+
+<body>
+    <!-- Error-Page -->
+    <section class="w3l-error-grid py-5 text-center pb-0">
+        <div class="container py-lg-5 py-md-4 pb-0">
+            <div class="errorhny-block">
+                <h4 class="cover-para w3ls">404</h4>
+                <h3 class="">Oops! That Page Cannot Be Found</h3>
+                <p>We're sorry, but
+                    something went wrong.</p>
+                <a href="index.html" class="btn btn-style btn-primary mt-5 "><i class="fas fa-arrow-left me-2"></i> Back to Home</a>
+            </div>
+        </div>
+    </section>
+    <!-- //Error-Page -->
+
+    <!-- Template JavaScript -->
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/theme-change.js"></script>
+    <!-- MENU-JS -->
+    <script>
+        $(window).on("scroll", function() {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 80) {
+                $("#site-header").addClass("nav-fixed");
+            } else {
+                $("#site-header").removeClass("nav-fixed");
+            }
+        });
+
+        //Main navigation Active Class Add Remove
+        $(".navbar-toggler").on("click", function() {
+            $("header").toggleClass("active");
+        });
+        $(document).on("ready", function() {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+            $(window).on("resize", function() {
+                if ($(window).width() > 991) {
+                    $("header").removeClass("active");
+                }
+            });
+        });
+
+    </script>
+    <!-- //MENU-JS -->
+
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function() {
+            $('.navbar-toggler').click(function() {
+                $('body').toggleClass('noscroll');
+            })
+        });
+
+    </script>
+    <!-- //disable body scroll which navbar is in active -->
+
+    <!-- //bootstrap -->
+    <script src="assets/js/bootstrap.min.js"></script>
+
+</body>
+
+
+<!-- Mirrored from p.w3layouts.com/demos_new/template_demo/03-03-2022/finagency-liberty-demo_Free/209759279/web/error.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 07 Jul 2025 12:50:46 GMT -->
+</html>

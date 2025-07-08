@@ -1,0 +1,20 @@
+<include href="includes/header.html" />
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page__content" id="page-content">
+    <!-- PAGE CONTENT CONTAINER -->
+    <div class="content" id="content">
+        <include href="includes/pageHeader.htm" />
+        <div class="container-fluid"></div>
+            <include href="{{@template}}" />
+
+            <div class="card margin-bottom-0">
+                <div class="card-body text-muted">
+                    &copy; All Rights Reserved. {{@business}} - {{date('Y')}} | Powered by <a href="https://icoderesources.com.ng" target="_blank">iCode Resources</a>
+                </div>
+            </div>
+    </div>
+    </div>
+    <!-- //END PAGE CONTENT CONTAINER -->
+</div>
+
+<include href="includes/footer.html" />

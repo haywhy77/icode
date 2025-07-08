@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-12 col-lg-12">
+
+
+        <div class="card">
+            <div class="widget invert widget--items-middle">
+                <div class="widget__icon_layer widget__icon_layer--right">
+                    <span class="li-folder-user"></span>
+                </div>
+                <div class="widget__container">
+                    <div class="widget__line">
+                        <div class="widget__icon">
+                            <span class="li-folder-user"></span>
+                        </div>
+                        <div class="widget__title">Staff List</div>
+                        <div class="widget__subtitle"></div>
+                    </div>
+                    <div class="widget__box">
+                        <div class="btn-group">
+                            <button class="btn btn-danger btn-block btn--icon btn--icon-stacked btn--icon-right"data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter <span class="fa fa-ellipsis-v"></span></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{@BASE}}/staff">All</a>
+                                <a class="dropdown-item" href="{{@BASE}}/staff?type=active">Active</a>
+                                <a class="dropdown-item" href="{{@BASE}}/staff?type=Deactivated">Deactivated</a>
+                                <a class="dropdown-item" href="{{@BASE}}/staff?type=Suspended">Suspended</a>
+                                <a class="dropdown-item" href="{{@BASE}}/staff?type=Deleted">Deleted</a>
+                                <a class="dropdown-item" href="{{@BASE}}/staff?type=fired">Fired</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <include href="includes/filter.html" with="byName=true" />
+                <div class="table-responsive">
+                    <table class="table table-indent-rows margin-bottom-0">
+                        <thead>
+                            <tr>
+                                <th width="50">
+                                    <div class="form-check">
+                                        <label class="form-check-label">#</label>
+                                    </div>
+                                </th>
+                                <th></th>
+                                <th>Position</th>
+                                <th width="20%">Name</th>
+                                <th >Gender</th>
+                                <th >Email</th>
+                                <th>Contact number</th>
+                                <th >Works with</th>
+                                <th width="150">Profile completed?</th>
+                                <th width="150">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @staff.data }}" key="{{@key}}" value="{{ @company }}" counter="{{@count}}">
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">{{@count}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <check if="{{!empty(@company.passport)}}">
+                                            <true><img src="{{@BASE}}/{{@company.passport}}" width="60px" height="60px" /></true>
+                                            <false><img src="{{@BASE}}/ui/img/passport.png" width="60px" height="60px" /></false>
+                                        </check>
+                                    </td>
+                                    <td>{{@company.position}}</td>
+                                    <td>
+                                        <strong><a href="{{@BASE}}/staff/{{@company.id}}">{{@company.names}}</a></strong>
+                                    </td>
+                                    <td>{{@company.gender}}</td>
+                                    <td>{{@company.email}}</td>
+                                    
+                                    <td>{{@company.phone}}</td>
+                                    <td>{{@company.current_client}}</td>
+                                    <td>
+                                        <div class="btn {{@company.complete=='YES'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@company.complete}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="btn {{@company.status=='ACTIVE'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@company.status}}</div>
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@staff}}, url=/staff" />
+            </div>
+        </div>
+
+    </div>
+</div>

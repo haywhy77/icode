@@ -1,0 +1,43 @@
+
+
+
+<!-- PAGE CONTAINER -->
+<div class="page__container invert">
+    <nav class="horizontal-navigation">
+        <button class="btn btn-light btn--icon" data-action="horizontal-show"><span class="fa fa-bars"></span> Toggle navigation</button>
+            <ul>
+                <repeat group="{{ @MENUS }}" value="{{ @menu }}">
+                    <li class="openable">
+                        <check if="{{@menu->type=='simple'}}">
+                            <true>
+                                <a href="{{@BASE}}{{@menu->url}}">
+                                    <span class="icon li-{{@menu->icon}}"></span>
+                                    <span class="text">{{@menu->label}}</span>
+                                </a>
+                            </true>
+                            <false>
+                                <a href="#">
+                                    <span class="icon li-{{@menu->icon}}"></span>
+                                    <span class="text">{{@menu->label}}</span>
+                                </a>
+                            </false>
+                        </check>
+                        <check if="{{ isset(@menu->child) }}">
+                            <true>
+                                <ul>
+                                    <repeat group="{{ @menu->child }}" value="{{ @child }}">
+                                        <li>
+                                            <a href="{{@BASE}}{{@child->url}}" class="no-icon">
+                                                <span class="text">{{@child->label}}</span>
+                                            </a>
+                                        </li>
+                                    </repeat>
+                                </ul>
+                            </true>
+                        </check>
+                    </li>
+                </repeat>
+            </ul>
+    </nav>
+</div>
+<!-- //END PAGE CONTAINER -->

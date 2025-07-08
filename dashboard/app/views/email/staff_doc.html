@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 95%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select{
+            background-color: #fff;
+            width: 98%;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        button{
+            cursor: pointer; 
+            background-color:black; 
+            font-size: 16px; 
+            padding: 10px; 
+            color: #fff; 
+            border: 0px; 
+            border-radius: 5px;
+        }
+        .del{
+            cursor: pointer; 
+            background-color:red; 
+            font-size: 16px; 
+            padding: 10px; 
+            color: #fff; 
+            border: 0px; 
+            border-radius: 5px;
+            margin-left: 5px;
+            height: 26px;
+            margin-top: 5px;
+            padding-top: 8px;
+        }
+        .primary{
+            background-color:cornflowerblue; 
+        }
+        .danger{
+            background-color:red; 
+        }
+
+        .ruler{
+            border-top: 1px solid #ccc;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+        .overlay{
+            position: absolute;
+            top: 0px;
+            background-color: rgba(0, 0, 0, .3);
+            width: 100%;
+            height: 100vh;
+            margin-left:-20px;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+        }
+
+        
+    </style>
+</head>
+<body style="background-color: #F4F4F4;">
+    
+    <div  style="display: flex; flex-direction: column; align-content: center; justify-content: center;">
+        <fieldset class="w3l-forms-31-right" style="border: 1px solid #ccc; padding: 3px; border-radius: 5px;">
+            
+            <h1>Candidate Application Form</h1>
+            <div style="display: flex; flex-direction: row; justify-content: left; align-items: left; margin-bottom: 20px;">
+                <img src="{{@data.passport}}" width="100px" height="100px" />
+            </div>
+            <div class="section">
+                <h2>1. Position Applied For</h2>
+                <label for="position_applied">Position Applied For:</label>
+                <input type="text" id="position_applied" value="{{@data.position}}" readonly>
+                <label for="role_interest">Please list the type of roles that are of interest to you:</label>
+                <input type="text" id="role_interest" name="role_interest" value="{{@data.preffered_positions}}">
+
+                <label for="trn_number"><strong style="color: red;">(Teachers only) </strong>Please provide your TRN Number: </label>
+                <input type="text" id="trn_number" name="trn_number" value="{{@data.trn_number}}">
+            </div>
+            
+            <div class="section">
+                <h2>2. Personal Information</h2>
+                <label for="title">Title<super style="color: red;">*</super>:</label>
+                <input type="text" id="title" name="title" required value="{{@data.title}}">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" value="{{@data.lastName}}" readonly>
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" value="{{@data.firstName}}" readonly>
+                <label for="middle_name">Middle Name:</label>
+                <input type="text" id="middle_name" value="{{@data.middleName}}" readonly>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" readonly>
+                <label for="address">Address<super style="color: red;">*</super>:</label>
+                <input type="text" id="address" name="address" required value="{{@data.address}}">
+                <label for="contact_number">Contact Number:</label>
+                <input type="text" id="contact_number" value="{{@data.phone}}" readonly>
+                <label for="email_address">Email Address:</label>
+                <input type="email" id="email_address" value="{{@data.email}}" readonly>
+                <label for="eligibility">Are you eligible to work in the United Kingdom and if so, please provide details of the right to work document that you hold (e.g., visa type, British passport)<super style="color: red;">*</super>:</label>
+                <div  style="width: 100%;">
+                    <input type="text" id="contact_number" value="{{@data.eligibility}}" readonly>
+                </div>
+            </div>
+    
+            <div class="section">
+                <h2>3. Name History (if applicable)</h2>
+                <p>Please provide your full legal name history. If you are known by a preferred name or alias, please also include these. You must tell us about all the names that you have been known as since birth.</p>
+                <label for="full_name_history">Full Name:</label>
+                <input type="text" id="full_name_history" name="full_name_history" value="{{@data.old_name}}">
+                <label for="reason_for_name_change">Reason for name change:</label>
+                <input type="text" id="reason_for_name_change" name="reason_for_name_change" value="{{@data.reason_for_name_change}}">
+                <label for="from_date_name_change">Date of name change:</label>
+                <input type="text" id="from_date_name_change" name="from_date_name_change" value="{{@data.date_of_change_from}}">
+                
+            </div>
+    
+            <div class="section">
+                <h2>4. Employment History</h2>
+                <p>Please provide us with the last 10 years of employment history or back to compulsory education, whichever is more recent. Please explain any gaps of 12 weeks or more.</p>
+                <div class="form-group employee-detail">
+                    <repeat group="{{@data.employment}}" key="{{@key}}" value="{{@employment}}" counter="{{@count}}">
+                        <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                            <div style="width: 100%;">
+                                <label for="position">Position:</label>
+                                <input type="text" id="position" value="{{@employment.position}}">
+                                <label for="reason_for_leaving">Reason for leaving:</label>
+                                <input type="text" id="reason_for_leaving" value="{{@employment.reason_for_leaving}}">
+                                <label for="employer_name">Employer name:</label>
+                                <input type="text" id="employer_name"  value="{{@employment.employer_name}}">
+                                <label for="employer_address">Address:</label>
+                                <input type="text" id="employer_address" value="{{@employment.employer_address}}">
+                                <label for="from_date_employment">From date:</label>
+                                <input type="text" id="from_date_employment" value="{{@employment.from_date_employment}}">
+                                <label for="to_date_employment">To date:</label>
+                                <input type="text" id="to_date_employment" value="{{@employment.to_date_employment}}">
+                                <label for="referee_details">Referee details:</label>
+                                <input type="text" id="referee_details" value="{{@employment.referee_details}}">
+                                <label for="referee_email">Referee email address:</label>
+                                <input type="email" id="referee_email" value="{{@employment.referee_email}}">
+                                <!--<label for="contact_referee">May we contact your referee prior to interview?</label>-->
+                                <!--<input type="text" id="contact_referee" value="{{@employment.contact_referee}}">  -->
+                            </div>
+                        </div>
+                        <hr>
+                    </repeat>
+                    
+                </div>
+            </div>
+    
+            <div class="section">
+                <h2>5. Qualifications</h2>
+                <p>Please provide details of all qualifications relevant to the role.</p>
+                <div class="form-group qual-detail">
+                    <repeat group="{{@data.qualification}}" key="{{@key}}" value="{{@employment}}" counter="{{@count}}">
+                        <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                            <div style="width: 100%;">
+                                <label for="qualification">Qualification<super style="color: red;">*</super>:</label>
+                                <input type="text" id="qualification" value="{{@employment.qualification}}">
+                                <label for="subject">Subject(s):</label>
+                                <input type="text" id="subject" value="{{@employment.subject}}">
+                                <label for="institution">Name of institution<super style="color: red;">*</super>:</label>
+                                <input type="text" id="institution" value="{{@employment.institution}}">
+                                <label for="grade">Grade<super style="color: red;">*</super>:</label>
+                                <input type="text" id="grade"  value="{{@employment.grade}}">
+                                <label for="from_date_qualification">From<super style="color: red;">*</super>:</label>
+                                <input type="text" id="from_date_qualification" value="{{@employment.from_date_qualification}}">
+                                <label for="to_date_qualification">To<super style="color: red;">*</super>:</label>
+                                <input type="text" id="to_date_qualification" value="{{@employment.to_date_qualification}}">
+                            </div>
+                        </div>
+                    </repeat>
+                    
+                </div>
+            </div>
+    
+            <div class="section">
+                <h2>6. Professional Development (if applicable)</h2>
+                <p>Please outline any other professional development that you believe is relevant to the role.</p>
+                <div class="form-group prof-detail">
+                    <repeat group="{{@data.profession}}" key="{{@key}}" value="{{@employment}}" counter="{{@count}}">
+                        <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                            <div style="width: 100%;">
+                                <label for="course_name">Name of course/qualification:</label>
+                                <input type="text" id="course_name" value="{{@employment.course_name}}">
+                                <label for="course_subject">Subject(s):</label>
+                                <input type="text" id="course_subject" value="{{@employment.course_subject}}">
+                                <label for="course_institution">Name of institution:</label>
+                                <input type="text" id="course_institution" value="{{@employment.course_institution}}">
+                                <label for="course_grade">Grade:</label>
+                                <input type="text" id="course_grade" value="{{@employment.course_grade}}">
+                                <label for="from_date_course">From:</label>
+                                <input type="text" id="from_date_course" value="{{@employment.from_date_course}}">
+                                <label for="to_date_course">To:</label>
+                                <input type="text" id="to_date_course" value="{{@employment.to_date_course}}">
+                            </div>
+                        </div>    
+                    </repeat>
+                    
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>7. Gaps in employment (if applicable)</h2>
+                <p>Please explain any gaps in employment of 12 weeks or more.</p>
+                <div class="form-group gap-detail">
+                    <repeat group="{{@data.gap}}" key="{{@key}}" value="{{@employment}}" counter="{{@count}}">
+                        <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                            <div style="width: 100%;">
+                                <label for="from_date_course">From:</label>
+                                <input type="text" id="from_date_gap" value="{{@employment.from_date_gap}}">
+                                <label for="to_date_gap">To:</label>
+                                <input type="text" id="to_date_gap" value="{{@employment.to_date_gap}}">
+                                <label for="reason_gap">Reason:</label>
+                                <input type="text" id="reason_gap"  value="{{@employment.reason_gap}}">
+                            </div>
+                        </div>    
+                    </repeat>
+                    
+                </div>
+            </div>
+    
+    
+            <div class="section">
+                <h2>8. Overseas Police Check</h2>
+                <p>Please provide details of any other country other than the UK that you have lived or worked in while aged 18 or over during the last 10 years for a period of 12 months or more.</p>
+                <div class="form-group police-detail">
+                    <repeat group="{{@data.police}}" key="{{@key}}" value="{{@employment}}" counter="{{@count}}">
+                        <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                            <div style="width: 100%;">
+                                <label for="overseas_country">Country:</label>
+                                <input type="text" id="overseas_country" value="{{@employment.overseas_country}}">
+                                <label for="overseas_job_title">Job title:</label>
+                                <input type="text" id="overseas_job_title" value="{{@employment.overseas_job_title}}">
+                                <label for="overseas_from_date">From:</label>
+                                <input type="text" id="overseas_from_date" value="{{@employment.overseas_from_date}}">
+                                <label for="overseas_to_date">To:</label>
+                                <input type="text" id="overseas_to_date" value="{{@employment.overseas_to_date}}">
+                            </div>
+                        </div>
+                    </repeat>
+                    
+                </div>
+            </div>
+
+
+            <div class="section">
+                <h2>9. Equality Act 2010</h2>
+                <p>The Equality Act 2010 protects people with disabilities from unlawful discrimination. Please tell us if you require us to make any reasonable adjustments to any part of the recruitment process.</p>
+                <label for="disability">Do you consider yourself to have a disability?:</label>
+                <input type="text" id="disability" value="{{@data.disability}}">
+                <label for="disability_detail">If yes, please describe your disability::</label>
+                <input type="text" id="disability_detail" value="{{@data.disability_detail}}">
+                <label for="adjustments">Please describe what reasonable adjustments you may need us to make in the interview:</label>
+                <input type="text" id="adjustments" value="{{@data.adjustments}}">
+                <label for="permission_to_share_info">Are you happy for us to share this information with the hirer of the role that you are applying for?:</label>
+                <input type="text" id="permission_to_share_info" value="{{@data.permission_to_share_info}}">
+            </div>
+    
+            <div class="section">
+                <h2>10. Criminal Record Declaration</h2>
+                <p>All posts involving direct contact with children are exempt from the Rehabilitation of Offenders Act 1974. However, amendments to the Exceptions Order 1975 (2013 & 2020) provide that certain spent convictions and cautions are 'protected'. These are not subject to disclosure to employers and cannot be taken into account. Guidance and criteria on the filtering of these cautions and convictions can be found on the Ministry of Justice website or see here.</p>
+                <p>Shortlisted candidates will be asked to provide details of all unspent convictions and those that would not be filtered prior to the date of the interview. You may be asked for further information about your criminal history during the recruitment process. If your application is successful, this self-disclosure information will be checked against information from the Disclosure & Barring Service before your appointment is confirmed.</p>
+                <p>Please be aware that failure to disclose all convictions, cautions, reprimands, or final warnings that are not protected could result in any offer of employment being withdrawn or, if appointed, disciplinary action which may result in dismissal.</p>
+                <label for="criminal_record">Do you have any convictions, causes, reprimands, or final warnings which are not protected as defined by the Rehabilitation of Offenders Act 1974 (Exceptions) Order 1975 (as amended in 2013)?</label>
+                <input type="text" id="criminal_record"  value="{{@data.criminal_record}}">
+                <label for="disqualified">Have you ever been disqualified from working with children or vulnerable adults?</label>
+                <input type="text" id="disqualified" value="{{@data.disqualified}}">
+                <label for="criminal_details">It is a criminal offence for barred individuals to seek or to undertake work with children. If you have answered 'YES' to either of the above, please provide further details.</label>
+                <textarea id="criminal_details">{{@data.criminal_details}}</textarea>
+            </div>
+
+            <div class="section">
+                <h2>11. Disqualification under the Childcare Act 2006</h2>
+                <p>Childcare disqualification is an additional requirement to the general child safeguarding arrangements provided under the Disclosure and Barring Service (DBS) regime, which apply to all children. .</p>
+                <p>Please complete this section <strong>if you are applying to work with children aged 5 and under, including reception classes, and those working in wraparound care for children up to the age of 8, such as breakfast clubs and after school care.</strong></p>
+                <p>If you are not working in these settings (for example if you are applying to work during school hours to children above reception age), insert 'N/A' in the boxes below.</p>
+                <label for="disqualified_children">Have any orders or other determinations related to childcare been made in respect of you?</label>
+                <input type="text" id="disqualified_children" value="{{@data.disqualified_children}}">
+                <label for="disqualified_children_care">Have any orders or other determinations related to childcare been made in respect of a child in your care?</label>
+                <input type="text" id="disqualified_children_care" value="{{@data.disqualified_children_care}}">
+                <label for="disqualified_children_prevent">Have any orders or other determinations been made which prevents you from being registered in relation to childcare, children's homes or fostering?</label>
+                <input type="text" id="disqualified_children_prevent" value="{{@data.disqualified_children_prevent}}">
+                <label for="disqualified_children_others">Are there any other relevant orders, restrictions or prohibitions in respect of you as set out in the Schedule 1 of the Regulations? Available at the link below: http://www.legislation.gov.uk/uksi/2009/1547/schedule/1/made</label>
+                <input type="text" id="disqualified_children_others" value="{{@data.disqualified_children_others}}">
+            </div>
+    
+            <div class="section">
+                <h2>12. Declaration</h2>
+                <p>I declare that the information that I have provided on this application form and also any other accompanying documents that I have provided are correct. I understand that any omissions, false, or misleading information provided on this form could result in my appointment being rejected or, in the event of employment, may result in disciplinary action being taken up to and including summary dismissal. It could also result in a referral to the police.</p>
+                <p>I understand my application form will be retained on file and give my consent for the personal data supplied to be used for the purposes of recruitment and selection.</p>
+                <label for="applicant_signature">Applicant signature<super style="color: red;">*</super>:</label>
+                <input type="text" id="applicant_signature" value="{{@data.names}}" required>
+                <label for="date">Date<super style="color: red;">*</super>:</label>
+                <input type="text" id="date"  value="{{@data.created_at}}" required>
+            </div>
+        </fieldset>
+    </div>
+</body>
+</html>

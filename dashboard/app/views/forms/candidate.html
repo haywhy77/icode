@@ -1,0 +1,126 @@
+<div class="row ">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="card-body">
+            <h4 id="rw-fl-row">Update Your Profile</h4>
+            <p class="subtitle margin-bottom-20">Activate your account by providing all the necessary information.</p>
+            <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+                <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                {{ @msg.text }}
+                </div>
+            </repeat>
+            <form method="post" action="{{@BASE}}/account/{{@USER->id}}" enctype="multipart/form-data">
+                <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+                <div class="form-group">
+                    <check if="{{@USER->passport}}">
+                        <true>
+                            <img src="{{@BASE}}/{{@USER->passport}}" width="100px" height="100px" />
+                        </true>
+                    </check>
+                    <br><p></p>
+                    <label>Profile Picture {{@USER->passport ? '':'<super style="color: red;">*</super>'}}</label>
+                    <input type="file" class="form-control" name="passport" accept="image/png, image/jpeg" {{@USER->passport ? "":"required='required'"}}/>
+                </div>
+                <div class="form-group">
+                    <label>Full Name <super style="color: red;">*</super></label>
+                    <input type="text" name="name" class="form-control" required="required" value="{{@USER->name}}">
+                    <span class="form-text margin-top-0">Enter your full name</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Gender <super style="color: red;">*</super></label>
+                    <select class="form-control select-simple" name="gender" required="required">
+                        <option value="Select" {{@USER->gender=='Select' ? "selected='selected'":''}}>--Select--</option>
+                        <option value="Female" {{@USER->gender=='Female' ? "selected='selected'":''}}>Female</option>
+                        <option value="Male" {{@USER->gender=='Male' ? "selected='selected'":''}}>Male</option>
+                    </select>
+                    <span class="form-text margin-top-0">Select your gender</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Phone Number <super style="color: red;">*</super></label>
+                    <input type="text" name="phone" class="form-control" required="required" value="{{@USER->phone}}">
+                    <span class="form-text margin-top-0">Enter your phone number</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Location <super style="color: red;">*</super></label>
+                    <input type="text" name="location" class="form-control" required="required" value="{{@USER->location}}">
+                    <span class="form-text margin-top-0">Enter your location</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Career Objective</label>
+                    <textarea name="about_me" class="form-control">{{@USER->about_me}}</textarea>
+                    <span class="form-text margin-top-0">Write your career objective</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>LinkedIn Url</label>
+                    <input type="text" name="linkedin" class="form-control" value="{{@USER->linkedIn_url}}">
+                    <span class="form-text margin-top-0">Enter your Linkedin url</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Portfolio Url</label>
+                    <input type="text" name="portfolio" class="form-control" value="{{@USER->portfolio_url}}">
+                    <span class="form-text margin-top-0">Enter your portfolio url</span>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Skills <super style="color: red;">*</super></label>
+                    <select id="s2-custom" name="skills[]" class="form-control" multiple="multiple">
+                        <repeat group="{{ @skills }}" value="{{ @skill }}">
+                            <option value="{{@skill.name}}">{{@skill.name}}</option>
+                        </repeat>
+                    </select>
+                    <span class="form-text margin-top-0">Select your skills</span>
+                    
+                </div>
+                <div class="form-group">
+                    
+                    <check if="{{!empty(@profile->default_resume)}}">
+                        <true>
+                            <label>Uploaded resume: {{str_replace('ui/uploads/','',@profile->default_resume)}}</label>
+                        </true>
+                        <false>
+                            <label>Resume <super style="color: red;">*</super></label>
+                        </false>
+                    </check>
+                    
+                    <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" {{@USER->default_resume ? '':"required='required'"}} />
+                </div>
+                <hr/>
+                
+                <div class="form-group" id="sign_button">
+                    <button type="submit" class="btn btn-secondary">Update Account</button>
+                </div>
+            </form>
+    
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        $("#s2-custom").select2({
+            tags: true,
+            createTag: function (params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
+                }
+
+                term += "(new)";
+
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                }
+            }
+        });
+    });
+</script>

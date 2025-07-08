@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Employment</title>
+	<style>
+		/* Responsive */
+		@media only screen and (max-width: 640px) {
+
+			/* Tables
+    parameters: width, alignment, padding */
+			table.w3l-scale {
+				width: 100% !important;
+			}
+
+			table.w3l-scale-300 {
+				width: 100% !important;
+				height: 300px !important;
+			}
+
+			table.w3l-scale-90 {
+				width: 90% !important;
+			}
+
+			/* Td */
+			td.w3l-scale-left {
+				width: 100% !important;
+				text-align: left !important;
+			}
+
+			td.w3l-scale-smaller {
+				height: 200px !important;
+			}
+
+			td.w3l-scale-height {
+				height: 70px !important;
+			}
+
+			td.w3l-scale-left-bottom {
+				width: 100% !important;
+				text-align: left !important;
+				padding-bottom: 24px !important;
+			}
+
+			td.w3l-scale-left-top {
+				width: 100% !important;
+				text-align: left !important;
+				padding-top: 24px !important;
+			}
+
+			td.w3l-scale-left-all {
+				width: 100% !important;
+				text-align: left !important;
+				padding-top: 24px !important;
+				padding-bottom: 24px !important;
+			}
+
+			td.w3l-scale-center {
+				width: 100% !important;
+				text-align: center !important;
+			}
+
+			td.w3l-scale-center-both {
+				width: 100% !important;
+				text-align: center !important;
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+
+			td.w3l-scale-center-bottom {
+				width: 100% !important;
+				text-align: center !important;
+				padding-bottom: 24px !important;
+			}
+
+			td.w3l-scale-center-top {
+				width: 100% !important;
+				text-align: center !important;
+				padding-top: 24px !important;
+			}
+
+			td.w3l-scale-center-all {
+				width: 100% !important;
+				text-align: center !important;
+				padding-top: 24px !important;
+				padding-bottom: 24px !important;
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+
+			td.w3l-scale-right {
+				width: 100% !important;
+				text-align: right !important;
+			}
+
+			td.w3l-scale-right-bottom {
+				width: 100% !important;
+				text-align: right !important;
+				padding-bottom: 24px !important;
+			}
+
+			td.w3l-scale-right-top {
+				width: 100% !important;
+				text-align: right !important;
+				padding-top: 24px !important;
+			}
+
+			td.w3l-scale-right-all {
+				width: 100% !important;
+				text-align: right !important;
+				padding-top: 24px !important;
+				padding-bottom: 24px !important;
+			}
+
+			td.w3l-scale-center-bottom-both {
+				width: 100% !important;
+				text-align: center !important;
+				padding-bottom: 24px !important;
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+
+			td.w3l-scale-center-top-both {
+				width: 100% !important;
+				text-align: center !important;
+				padding-top: 24px !important;
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+
+			td.w3l-scale-center-topextra {
+				width: 100% !important;
+				text-align: center !important;
+				padding-top: 50px !important;
+			}
+
+			img.w3l-scale {
+				width: 100% !important;
+			}
+		}
+	</style>
+</head>
+
+<body style="margin:0; padding:0;">
+	<table align="center" border="0" cellpadding="0" cellspacing="0" class="w3l-scale" style="background-color: #EAECED" width="100%">
+		<tr>
+			<td>
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="w3l-scale-90"
+					style="background-color: #FFFFFF; border-radius: 0 0 10px 10px" width="620">
+					<tr>
+						<td height="20" style="font-size: 1px">&nbsp;</td>
+					</tr>
+					<tr>
+						<td align="center">
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="w3l-scale" width="560">
+								<tr>
+									<td align="center"><img src="https://deenservices.com/images/logo-email.jpg" width="300"></td>
+								</tr>
+						
+								<tr>
+									<td align="left" class="w3l-scale-center-both" style="font-size: 16px; line-height: 24px; color: #233252;
+									font-family: helvetica, arial, sans-serif;">
+										<p style="text-align: left;">Dear {{@data.name}},</p>
+										<p style="text-align: left;">Congratulations! We are pleased to inform you that you have been successfully onboarded and cleared to work with Deen Consult Services.</p>
+										<!--
+										<ul style="text-align: left;">
+											<li>Start Date: {{@data.startDate}}</li>
+											<li>Salary: {{@data.salary}}</li>
+											<li>Location: {{@data.location}}</li>
+										</ul>
+										-->
+										<p>Based on your employment type, the following applies:</p>
+										
+										<!--
+										<h4 style="margin-bottom: 0;">Next Steps</h4>
+										<ol style="margin-top: 0;">
+											<li>Sign and return agreement: Please sign and return the employment agreement via email to <a href="mailto:hr@deenservices.com">hr@deenconsult.com</a>.</li>
+											<li>If you're being employed on a temporary contract, kindly fill in this <a href="https://form.jotform.com/243153079125352" tareget="_blank">form here</a>.
+											<li>Onboarding Process: Upon acceptance, you will receive further information about the onboarding process, including details about your first day, orientation, and any necessary documentation.</li>
+										</ol>
+										-->
+										<p><strong>For Temporary Workers (Zero-Hour Contract):</strong> You are now part of our agency staff team on a zero-hour contract. We will strive to match you with roles that align with your skills and preferences while keeping you informed about relevant opportunities and updates.</p>
+                                        
+                                        <p><strong>For Permanent Staff:</strong> You have been employed on a permanent contract. Additional details about your role, responsibilities, and benefits will be provided to you shortly.</p>
+                                        
+                                        
+                                        <p>If you have any questions or require clarification about your employment, please feel free to reach out to us using any of the contact details below.</p>
+                                        
+									
+										
+										<p>Welcome aboard, and we look forward to working with you!</p>
+										<p style="text-align: left;">Sincerely, <br>Human Resources Team <br> Deen Consults Services (Trading as Respond Recruitment, Southeast London) <br>Phone: 02038137584, 07955268600, 07955268604 <br>Email: hr@deenservices.com</p>
+
+										
+										
+									</td>
+								</tr>
+								
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<table align="center" border="0" cellpadding="0" cellspacing="0" class="w3l-scale" style="background-color: #EAECED" width="100%">
+		<tr>
+			<td height="10" style="font-size: 1px">&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<table align="center" border="0" cellpadding="0" cellspacing="0" class="w3l-scale-90"
+					style="background-color: #FFFFFF; border-radius: 10px; overflow: hidden" width="620">
+					
+					<tr>
+						<td align="center" class="w3l-scale-center-both" style="font-size: 13px; height: 45px; font-family: helvetica, arial, sans-serif; color: #666; line-height: 24px;">
+							&copy; 2024 Deen Consult Services. All Rights Reserved | Designed by <a href="https://icoderesources.com.ng/" target="_blank" style="font-family: helvetica, arial, sans-serif;">iCode Resources</a>							
+						   
+						</td>
+					</tr>
+				
+				</table>
+				<tr>
+					<td height="10" style="font-size: 1px">&nbsp;</td>
+				</tr>
+		
+			</td>
+		</tr>
+		
+	</table>
+</body>
+</html>

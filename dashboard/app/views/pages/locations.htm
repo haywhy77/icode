@@ -1,0 +1,135 @@
+      
+<div class="row">
+    <div class="col-md-9 col-lg-9">
+        <div class="card margin-bottom-0">
+            <div class="card-body">
+                <button type="button" class="btn btn-secondary" href="#" data-bs-toggle="modal" data-bs-target="#locationModal">Add Location</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive margin-top-20">
+                    <table class="table table-striped table-bordered margin-bottom-20" style="min-width: 800px;">
+                        <thead>
+                            <tr>
+                                <th width="30"><label class="form-check-label"></label></th>
+                                <th>Name</th>
+                                <th width="100">Status</th>
+                                <th width="100"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @job.locations.data }}" key="{{@key}}" value="{{ @location }}" counter="{{@count}}">
+                                <tr>
+                                    <td><label class="form-check-label">{{@count}}</label></td>
+                                    <td>{{@location["name"]}}</td>
+                                    <td>{{@location["status"]}}</td>
+                                    
+                                    <td>
+                                        <check if="{{@SESSION.account=='ADMIN'}}">
+                                            <true>
+                                                <button class="btn btn-secondary btn-icon btn-sm btn-delete" data-value="{{@location.id}}"><span class="fa fa-trash"></span></button>
+                                            </true>
+                                        </check>
+                                        
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@job.locations}}, url=/jobs/locations" />
+            </div>
+        </div>
+       
+    </div>
+    <div class="col-6 col-lg-2">
+    </div>
+</div>
+
+<div class="modal fade" id="locationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{@BASE}}/jobs/locations">
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content invert">
+                <div class="modal-header">
+                    <h5 class="modal-title">New location</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Location name</label>
+                        <input type="text" name="name" class="form-control" required="required" />
+                        <span class="form-text">Enter your preferred location name .</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-closes" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-process">Save</button>
+                </div>
+            </div>    
+        </form>
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        $(".btn-process").on("click", function() {
+            
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            var form = $(this).closest('form');
+            
+            
+            var url=$(form).attr('action');
+            
+            var values=$(form).serializeArray();
+            console.log(values)
+            // $(".alert-body").html(values);
+            
+            
+            
+            $.post(url, values, function(data, error){
+                console.log(data, error);
+                
+                if(data.status){
+                    $(".btn-closes").trigger( "click" );
+                    window.location.reload();
+                }else{
+                    $(".btn-closes").trigger( "click" );
+                    $(".alert-body").html(data.message);
+                    $(".modal-trigger").trigger( "click" );
+                }
+            })
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+            
+        })
+        $('.btn-delete').on('click', function(){
+            if(confirm("Are you sure you want to delete this role?")){
+                app._loading.show($(".table-responsive"),{spinner: true});
+                const values={
+                    id: $(this).attr('data-value'),
+                    action: 'LOCATIONS'
+                }
+                $.post("{{@BASE}}/jobs/misc-trash", values, function(data, error){
+                    console.log(data, error);
+                    
+                    if(data.status){
+                        $(".btn-closes").trigger( "click" );
+                        window.location.reload();
+                    }else{
+                        $(".btn-closes").trigger( "click" );
+                        $(".alert-body").html(data.message);
+                        $(".modal-trigger")[0].click;
+                    }
+                    setTimeout(function(){
+                        app._loading.hide($(".table-responsive"));
+                    },2000);
+                })
+            }
+        })
+    });
+    
+</script>

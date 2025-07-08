@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-12 col-lg-12">
+
+
+        <div class="card">
+            <div class="widget invert widget--items-middle">
+                <div class="widget__icon_layer widget__icon_layer--right">
+                    <span class="li-folder-user"></span>
+                </div>
+                <div class="widget__container">
+                    <div class="widget__line">
+                        <div class="widget__icon">
+                            <span class="li-folder-user"></span>
+                        </div>
+                        <div class="widget__title">Registered Employers</div>
+                        <div class="widget__subtitle">Summary information about employers</div>
+                    </div>
+                    <!--<div class="widget__box">-->
+                    <!--    <button class="btn btn-secondary btn-lg btn-click" data-href="{{@BASE}}/employers/new">Add Employer</button>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-indent-rows margin-bottom-0">
+                        <thead>
+                            <tr>
+                                <th width="100">
+                                    <div class="form-check">
+                                        <label class="form-check-label">S/N</label>
+                                    </div>
+                                </th>
+                                <th>Name</th>
+                                <th >Email</th>
+                                <th width="200">Contact Number</th>
+                                <th width="150">Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @clients.data }}" key="{{@key}}" value="{{ @company }}" counter="{{@count}}">
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">{{@count}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong><a href="{{@BASE}}/employers/{{@company.id}}">{{@company.names}}</a></strong>
+                                    </td>
+                                    <td>{{@company.email}}</td>
+                                    <td>{{@company.phone}}</td>
+                                    <td>
+                                        <div class="btn {{@company.status=='ACTIVE'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@company.status}}</div>
+                                    </td>
+                                    <td>
+                                        <check if="{{@SESSION.account=='ADMIN'}}">
+                                            <true>
+                                                
+                                                <button class="btn btn-secondary btn-icon btn-sm btn-delete" data-value="{{@company.id}}"><span class="fa fa-trash"></span></button>
+                                            </true>
+                                        </check>
+                                        
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@clients}}, url=/employers" />
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        $('.btn-delete').on('click', function(){
+            if(confirm("Deleting this client will also remove all applicants attached to it. Are you sure you still want to continue?")){
+                app._loading.show($(".table-responsive"),{spinner: true});
+                const values={
+                    id: $(this).attr('data-value'),
+                    action: 'CLIENT'
+                }
+                $.post("{{@BASE}}/jobs/misc-trash", values, function(data, error){
+                    console.log(data, error);
+                    
+                    if(data.status){
+                        $(".btn-closes").trigger( "click" );
+                        window.location.reload();
+                    }else{
+                        $(".btn-closes").trigger( "click" );
+                        $(".alert-body").html(data.message);
+                        $(".modal-trigger")[0].click;
+                    }
+                    setTimeout(function(){
+                        app._loading.hide($(".table-responsive"));
+                    },2000);
+                })
+            }
+        })
+    });
+    
+</script>

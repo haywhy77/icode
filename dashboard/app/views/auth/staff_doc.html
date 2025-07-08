@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 95%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select{
+            background-color: #fff;
+            width: 98%;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        button{
+            cursor: pointer; 
+            background-color:black; 
+            font-size: 16px; 
+            padding: 10px; 
+            color: #fff; 
+            border: 0px; 
+            border-radius: 5px;
+        }
+        .del{
+            cursor: pointer; 
+            background-color:red; 
+            font-size: 16px; 
+            padding: 10px; 
+            color: #fff; 
+            border: 0px; 
+            border-radius: 5px;
+            margin-left: 5px;
+            height: 26px;
+            margin-top: 5px;
+            padding-top: 8px;
+        }
+        .primary{
+            background-color:cornflowerblue; 
+        }
+        .danger{
+            background-color:red; 
+        }
+
+        .ruler{
+            border-top: 1px solid #ccc;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+        .overlay{
+            position: absolute;
+            top: 0px;
+            background-color: rgba(0, 0, 0, .3);
+            width: 100%;
+            height: 100vh;
+            margin-left:-20px;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+        }
+
+        
+        .alert {
+        --bs-alert-bg: transparent;
+        --bs-alert-padding-x: 1rem;
+        --bs-alert-padding-y: 1rem;
+        --bs-alert-margin-bottom: 1rem;
+        --bs-alert-color: inherit;
+        --bs-alert-border-color: transparent;
+        --bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
+        --bs-alert-border-radius: var(--bs-border-radius);
+        --bs-alert-link-color: inherit;
+        position: relative;
+        padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
+        margin-bottom: var(--bs-alert-margin-bottom);
+        color: var(--bs-alert-color);
+        background-color: var(--bs-alert-bg);
+        border: var(--bs-alert-border);
+        border-radius: var(--bs-alert-border-radius);
+        }
+
+        .alert-heading {
+        color: inherit;
+        }
+
+        .alert-link {
+        font-weight: 700;
+        color: var(--bs-alert-link-color);
+        }
+
+        .alert-dismissible {
+        padding-right: 3rem;
+        }
+        .alert-dismissible .btn-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        padding: 1.25rem 1rem;
+        }
+
+        .alert-primary {
+        --bs-alert-color: #052c65;
+        --bs-alert-bg: #cfe2ff;
+        --bs-alert-border-color: #9ec5fe;
+        --bs-alert-link-color: #052c65;
+        }
+
+        .alert-secondary {
+        --bs-alert-color: #2b2f32;
+        --bs-alert-bg: #e2e3e5;
+        --bs-alert-border-color: #c4c8cb;
+        --bs-alert-link-color: #a7acb1;
+        }
+
+        .alert-success {
+        --bs-alert-color:#75b798;
+        --bs-alert-bg: #051b11;
+        --bs-alert-border-color: #0f5132;
+        --bs-alert-link-color: #0a3622;
+        }
+
+        .alert-info {
+        --bs-alert-color: #055160;
+        --bs-alert-bg: #cff4fc;
+        --bs-alert-border-color: #9eeaf9;
+        --bs-alert-link-color: #055160;
+        }
+
+        .alert-warning {
+        --bs-alert-color: #664d03;
+        --bs-alert-bg: #fff3cd;
+        --bs-alert-border-color: #ffe69c;
+        --bs-alert-link-color: #664d03;
+        }
+
+        .alert-danger {
+        --bs-alert-color: #58151c;
+        --bs-alert-bg: #f8d7da;
+        --bs-alert-border-color: #f1aeb5;
+        --bs-alert-link-color: #ea868f;
+        }
+
+
+    </style>
+</head>
+<body style="background-color: #F4F4F4;">
+    <div class="overlay" id="overlay">
+        <img src="{{@BASE}}/{{@ASSETS}}img/loader.svg" />
+    </div>
+    <div  style="display: flex; flex-direction: column; align-content: center; justify-content: center; margin-left: 20%;">
+        <fieldset class="w3l-forms-31-right" style="width: 70%; border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+            <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+                <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                {{ @msg.text }}
+                </div>
+            </repeat>
+            <check if="{{@action}}">
+                <true>
+                    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 20px;">
+                        <img src="../../../assets/images/logo.png" />
+                    </div>
+                    <p>
+                        <strong>Congratulations! Your profile has been updated and uploaded documents saved successfully.</strong>
+                    </p>
+                    
+                    <p>We will get back you as soon as the employment process completes.</p>
+                    <p>Kindly wait for our follow up mails.</p>
+                    <br>
+                    <p>
+                        <a href="{{@BASE}}/" class="btn btn-primary">Go to website</a>
+                    </p>
+                </true>
+                <false>
+                    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-bottom: 20px;">
+                        <img src="../../../assets/images/logo.png" />
+                    </div>
+                    <h1>Candidate Application Form</h1>
+                    <form method="post"  enctype="multipart/form-data">
+                        <div class="section">
+                            <h2>1. Position Applied For</h2>
+                            <label for="position_applied">Position Applied For:</label>
+                            <input type="text" id="position_applied" value="{{@profile->position}}" readonly>
+                            <label for="role_interest">Please list the type of roles that are of interest to you:</label>
+                            <input type="text" id="role_interest" name="role_interest">
+
+                            <label for="trn_number"><strong style="color: red;">(Teachers only) </strong>Please provide your TRN Number: </label>
+                            <input type="text" id="trn_number" name="trn_number">
+                        </div>
+                        
+                        <div class="section">
+                            <h2>2. Personal Information</h2>
+                            <label for="title">Title<super style="color: red;">*</super>:</label>
+                            <input type="text" id="title" name="title" required>
+                            <label for="last_name">Last Name:</label>
+                            <input type="text" id="last_name" value="{{@profile->lastName}}" readonly>
+                            <label for="first_name">First Name:</label>
+                            <input type="text" id="first_name" value="{{@profile->firstName}}" readonly>
+                            <label for="middle_name">Middle Name:</label>
+                            <input type="text" id="middle_name" value="{{@profile->middleName}}" readonly>
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" id="dob" name="dob">
+                            <label for="address">Address<super style="color: red;">*</super>:</label>
+                            <input type="text" id="address" name="address" required>
+                            <label for="contact_number">Contact Number:</label>
+                            <input type="text" id="contact_number" value="{{@profile->phone}}" readonly>
+                            <label for="email_address">Email Address:</label>
+                            <input type="email" id="email_address" value="{{@profile->email}}" readonly>
+                            <label for="eligibility">Are you eligible to work in the United Kingdom and if so, please provide details of the right to work document that you hold (e.g., visa type, British passport)<super style="color: red;">*</super>:</label>
+                            <div  style="width: 100%;">
+                                <select name="eligibility" class="eligibility" required>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group upload-resume" style="display: block;">
+                                <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                                    <input type="file" name="right_to_work[]" required class="form-control" accept="image/*, .pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                    <span class="del" style="display: none; cursor: pointer;">
+                                        <i class="fa fa-minus">-</i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group upload-resume-btn" id="sign_button" style="display: block;">
+                                <button type="button" class="danger btn-add" data-parent=".upload-resume">Add</button>
+                            </div>  
+                        </div>
+                
+                        <div class="section">
+                            <h2>3. Name History (if applicable)</h2>
+                            <p>Please provide your full legal name history. If you are known by a preferred name or alias, please also include these. You must tell us about all the names that you have been known as since birth.</p>
+                            <label for="full_name_history">Full Name:</label>
+                            <input type="text" id="full_name_history" name="full_name_history">
+                            <label for="reason_for_name_change">Reason for name change:</label>
+                            <input type="text" id="reason_for_name_change" name="reason_for_name_change">
+                            <label for="from_date_name_change">Date of name change:</label>
+                            <input type="date" id="from_date_name_change" name="from_date_name_change">
+                            
+                        </div>
+                
+                        <div class="section">
+                            <h2>4. Employment History</h2>
+                            <p>Please provide us with the last 10 years of employment history or back to compulsory education, whichever is more recent. Please explain any gaps of 12 weeks or more.</p>
+                            <div class="form-group employee-detail">
+                                <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                                    <div style="width: 100%;">
+                                        <label for="position">Position:</label>
+                                        <input type="text" id="position" name="position[]">
+                                        <label for="reason_for_leaving">Reason for leaving:</label>
+                                        <input type="text" id="reason_for_leaving" name="reason_for_leaving[]">
+                                        <label for="employer_name">Employer name:</label>
+                                        <input type="text" id="employer_name" name="employer_name[]">
+                                        <label for="employer_address">Address:</label>
+                                        <input type="text" id="employer_address" name="employer_address[]">
+                                        <label for="from_date_employment">From date:</label>
+                                        <input type="date" id="from_date_employment" name="from_date_employment[]">
+                                        <label for="to_date_employment">To date:</label>
+                                        <input type="date" id="to_date_employment" name="to_date_employment[]">
+                                        <label for="referee_details">Referee details:</label>
+                                        <input type="text" id="referee_details" name="referee_details[]">
+                                        <label for="referee_email">Referee email address:</label>
+                                        <input type="email" id="referee_email" name="referee_email[]">
+                                        <label for="contact_referee" style="display: none;">May we contact your referee prior to interview?</label>
+                                        <input type="hidden" id="contact_referee" name="contact_referee[]" value="yes">  
+                                    </div>
+                                    
+                                    <span class="del" style="display: none; cursor: pointer;">
+                                        <i class="fa fa-minus">-</i>
+                                    </span>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group" id="empl_button">
+                                <button type="button" class="danger btn-add" data-parent=".employee-detail">Add more history</button>
+                            </div>  
+                        </div>
+                
+                        <div class="section">
+                            <h2>5. Qualifications</h2>
+                            <p>Please provide details of all qualifications relevant to the role.</p>
+                            <div class="form-group qual-detail">
+                                <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                                    <div style="width: 100%;">
+                                        <label for="qualification">Qualification<super style="color: red;">*</super>:</label>
+                                        <input type="text" id="qualification" name="qualification[]" required>
+                                        <label for="subject">Subject(s):</label>
+                                        <input type="text" id="subject" name="subject[]">
+                                        <label for="institution">Name of institution<super style="color: red;">*</super>:</label>
+                                        <input type="text" id="institution" name="institution[]"required>
+                                        <label for="grade">Grade<super style="color: red;">*</super>:</label>
+                                        <input type="text" id="grade" name="grade[]" required>
+                                        <label for="from_date_qualification">From<super style="color: red;">*</super>:</label>
+                                        <input type="date" id="from_date_qualification" name="from_date_qualification[]" required>
+                                        <label for="to_date_qualification">To<super style="color: red;">*</super>:</label>
+                                        <input type="date" id="to_date_qualification" name="to_date_qualification[]" required>
+                                    </div>
+                                    <span class="del" style="display: none; cursor: pointer;">
+                                        <i class="fa fa-minus">-</i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" id="empl_button">
+                                <button type="button" class="danger btn-add" data-parent=".qual-detail">Add more qualifications</button>
+                            </div> 
+                        </div>
+                
+                        <div class="section">
+                            <h2>6. Professional Development (if applicable)</h2>
+                            <p>Please outline any other professional development that you believe is relevant to the role.</p>
+                            <div class="form-group prof-detail">
+                                <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                                    <div style="width: 100%;">
+                                        <label for="course_name">Name of course/qualification:</label>
+                                        <input type="text" id="course_name" name="course_name[]">
+                                        <label for="course_subject">Subject(s):</label>
+                                        <input type="text" id="course_subject" name="course_subject[]">
+                                        <label for="course_institution">Name of institution:</label>
+                                        <input type="text" id="course_institution" name="course_institution[]">
+                                        <label for="course_grade">Grade:</label>
+                                        <input type="text" id="course_grade" name="course_grade[]">
+                                        <label for="from_date_course">From:</label>
+                                        <input type="date" id="from_date_course" name="from_date_course[]">
+                                        <label for="to_date_course">To:</label>
+                                        <input type="date" id="to_date_course" name="to_date_course[]">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="empl_button">
+                                <button type="button" class="danger btn-add" data-parent=".prof-detail">Add more professional developments</button>
+                            </div> 
+                        </div>
+
+                        <div class="section">
+                            <h2>7. Gaps in employment (if applicable)</h2>
+                            <p>Please explain any gaps in employment of 12 weeks or more.</p>
+                            <div class="form-group gap-detail">
+                                <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                                    <div style="width: 100%;">
+                                        <label for="from_date_course">From:</label>
+                                        <input type="date" id="from_date_gap" name="from_date_gap[]">
+                                        <label for="to_date_gap">To:</label>
+                                        <input type="date" id="to_date_gap" name="to_date_gap[]">
+                                        <label for="reason_gap">Reason:</label>
+                                        <input type="text" id="reason_gap" name="reason_gap[]">
+                                    </div>
+                                    <span class="del" style="display: none; cursor: pointer;">
+                                        <i class="fa fa-minus">-</i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" id="empl_button">
+                                <button type="button" class="danger btn-add" data-parent=".gap-detail">Add more gaps</button>
+                            </div> 
+                        </div>
+                
+                
+                        <div class="section">
+                            <h2>8. Overseas Police Check</h2>
+                            <p>Please provide details of any other country other than the UK that you have lived or worked in while aged 18 or over during the last 10 years for a period of 12 months or more.</p>
+                            <div class="form-group police-detail">
+                                <div class="input-group padding-top-10" style="display: flex; flex-direction: row;">
+                                    <div style="width: 100%;">
+                                        <label for="overseas_country">Country:</label>
+                                        <input type="text" id="overseas_country" name="overseas_country[]">
+                                        <label for="overseas_job_title">Job title:</label>
+                                        <input type="text" id="overseas_job_title" name="overseas_job_title[]">
+                                        <label for="overseas_from_date">From:</label>
+                                        <input type="date" id="overseas_from_date" name="overseas_from_date[]">
+                                        <label for="overseas_to_date">To:</label>
+                                        <input type="date" id="overseas_to_date" name="overseas_to_date[]">
+                                    </div>
+                                    <span class="del" style="display: none; cursor: pointer;">
+                                        <i class="fa fa-minus">-</i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" id="empl_button">
+                                <button type="button" class="danger btn-add" data-parent=".police-detail">Add more police checks</button>
+                            </div> 
+                        </div>
+
+
+                        <div class="section">
+                            <h2>9. Equality Act 2010</h2>
+                            <p>The Equality Act 2010 protects people with disabilities from unlawful discrimination. Please tell us if you require us to make any reasonable adjustments to any part of the recruitment process.</p>
+                            <label for="disability">Do you consider yourself to have a disability?:</label>
+                            <input type="text" id="disability" name="disability">
+                            <label for="disability_detail">If yes, please describe your disability::</label>
+                            <input type="text" id="disability_detail" name="disability_detail">
+                            <label for="adjustments">Please describe what reasonable adjustments you may need us to make in the interview:</label>
+                            <input type="text" id="adjustments" name="adjustments">
+                            <label for="permission_to_share_info">Are you happy for us to share this information with the hirer of the role that you are applying for?:</label>
+                            <input type="text" id="permission_to_share_info" name="permission_to_share_info">
+                        </div>
+                
+                        <div class="section">
+                            <h2>10. Criminal Record Declaration</h2>
+                            <p>All posts involving direct contact with children are exempt from the Rehabilitation of Offenders Act 1974. However, amendments to the Exceptions Order 1975 (2013 & 2020) provide that certain spent convictions and cautions are 'protected'. These are not subject to disclosure to employers and cannot be taken into account. Guidance and criteria on the filtering of these cautions and convictions can be found on the Ministry of Justice website or see here.</p>
+                            <p>Shortlisted candidates will be asked to provide details of all unspent convictions and those that would not be filtered prior to the date of the interview. You may be asked for further information about your criminal history during the recruitment process. If your application is successful, this self-disclosure information will be checked against information from the Disclosure & Barring Service before your appointment is confirmed.</p>
+                            <p>Please be aware that failure to disclose all convictions, cautions, reprimands, or final warnings that are not protected could result in any offer of employment being withdrawn or, if appointed, disciplinary action which may result in dismissal.</p>
+                            <label for="criminal_record">Do you have any convictions, causes, reprimands, or final warnings which are not protected as defined by the Rehabilitation of Offenders Act 1974 (Exceptions) Order 1975 (as amended in 2013)?</label>
+                            <input type="text" id="criminal_record" name="criminal_record">
+                            <label for="disqualified">Have you ever been disqualified from working with children or vulnerable adults?</label>
+                            <input type="text" id="disqualified" name="disqualified">
+                            <label for="criminal_details">It is a criminal offence for barred individuals to seek or to undertake work with children. If you have answered 'YES' to either of the above, please provide further details.</label>
+                            <textarea id="criminal_details" name="criminal_details"></textarea>
+                        </div>
+
+                        <div class="section">
+                            <h2>11. Disqualification under the Childcare Act 2006</h2>
+                            <p>Childcare disqualification is an additional requirement to the general child safeguarding arrangements provided under the Disclosure and Barring Service (DBS) regime, which apply to all children. .</p>
+                            <p>Please complete this section <strong>if you are applying to work with children aged 5 and under, including reception classes, and those working in wraparound care for children up to the age of 8, such as breakfast clubs and after school care.</strong></p>
+                            <p>If you are not working in these settings (for example if you are applying to work during school hours to children above reception age), insert 'N/A' in the boxes below.</p>
+                            <label for="disqualified_children">Have any orders or other determinations related to childcare been made in respect of you?</label>
+                            <input type="text" id="disqualified_children" name="disqualified_children">
+                            <label for="disqualified_children_care">Have any orders or other determinations related to childcare been made in respect of a child in your care?</label>
+                            <input type="text" id="disqualified_children_care" name="disqualified_children_care">
+                            <label for="disqualified_children_prevent">Have any orders or other determinations been made which prevents you from being registered in relation to childcare, children's homes or fostering?</label>
+                            <input type="text" id="disqualified_children_prevent" name="disqualified_children_prevent">
+                            <label for="disqualified_children_others">Are there any other relevant orders, restrictions or prohibitions in respect of you as set out in the Schedule 1 of the Regulations? Available at the link below: http://www.legislation.gov.uk/uksi/2009/1547/schedule/1/made</label>
+                            <input type="text" id="disqualified_children_others" name="disqualified_children_others">
+                        </div>
+                
+                        <div class="section">
+                            <h2>12. Declaration</h2>
+                            <p>I declare that the information that I have provided on this application form and also any other accompanying documents that I have provided are correct. I understand that any omissions, false, or misleading information provided on this form could result in my appointment being rejected or, in the event of employment, may result in disciplinary action being taken up to and including summary dismissal. It could also result in a referral to the police.</p>
+                            <p>I understand my application form will be retained on file and give my consent for the personal data supplied to be used for the purposes of recruitment and selection.</p>
+                            <label for="applicant_signature">Applicant signature<super style="color: red;">*</super>:</label>
+                            <input type="text" id="applicant_signature" name="applicant_signature" required>
+                            <label for="date">Date<super style="color: red;">*</super>:</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                
+                        <div class="section">
+                            <button type="submit" class="primary submit-button">Submit profile</button>
+                        </div>
+                    </form>
+                </false>
+            </check>
+            
+        </fieldset>
+    </div>
+    
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery-migrate.min.js"></script>
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    
+    
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            $('.eligibility').on('change', function(e){
+                var value=$(this).val();
+                if(value=='Yes'){
+                    $('.upload-resume').css('display', 'block');
+                    $('.upload-resume-btn').css('display', 'block');
+                }else{
+                    $('.upload-resume').css('display', 'none');
+                    $('.upload-resume-btn').css('display', 'none');
+                }
+            })
+            $('.btn-add').on('click', function(e){
+                var element=$(this).attr('data-parent');
+                var el=$(element).children('div').clone();
+                $(el).addClass('ruler')
+                $(el).children(".del").css('display', 'block');
+                $(el).children(".del").css('padding-top', '10px');
+                $(el).children('input[type=file]').trigger('click');
+                $(el).children(".del").on('click', function(e){
+                    $(this).closest('div').remove()
+                });
+                $(element).append(el[0]).find("input[type='text']").val("")
+            });
+
+    
+    
+            $(".data-delete").on("click", function(e){
+                var file=$(this).attr('data-url');
+                // alert(file); return false;
+                window.location.href=file;
+                // window.location.href=file;
+            })
+
+
+            
+
+            $("form").submit(function( e ) {
+                $('#overlay').css('visibility', 'visible');
+                // e.preventDefault();
+                
+                // $.ajax({
+                //     url: window.location.href,
+                //     type: 'POST',
+                //     data: new FormData( this ),
+                //     processData: false,
+                //     contentType: false,
+                //     beforeSend: function () {
+                //         $('#overlay').css('visibility', 'visible');
+                //     },
+                //     complete: function(){
+                //         $('#overlay').css('visibility', 'hidden');
+                //     },
+                //     success: function(data){
+                //         if(data.status){
+                            
+                //         }else{
+                //             $(".job_contents").html("No job openings currently.");
+                //         }
+                //     },
+                //     error: function(error){
+                //         console.log(error)
+                //     },
+                // });
+                
+            })
+            // $('form').trigger('submit')
+        });
+    </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="{{@BASE}}/{{@ASSETS}}js/html2canvas.js"></script> 
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            $(".submit-button").click(function( e ) {
+                e.preventDefault();
+                const element = document.querySelector('.w3l-forms-31-right');
+                
+                html2canvas(element).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new window.jspdf.jsPDF();
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    pdf.save('converted-document.pdf');
+                });
+                
+                
+                
+            })
+            // $('form').trigger('submit')
+        })
+    </script> -->
+</body>
+</html>

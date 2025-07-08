@@ -1,0 +1,112 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+/*
+ */
+ @font-face{font-family:'FontAwesome';src:url("font/fontawesome-webfont.eot?v=3.0.1");src:url("font/fontawesome-webfont.eot?#iefix&v=3.0.1") format("embedded-opentype"),url("font/fontawesome-webfont.woff?v=3.0.1") format("woff"),url("font/fontawesome-webfont.ttf?v=3.0.1") format("truetype");font-weight:normal;font-style:normal}
+ 
+
+
+.coc_form {
+	margin:auto;	
+	width:1024px;
+	padding-top:20px;
+	border:1px solid #EBEBEB;
+	box-shadow:#999 2px;
+	font-family:Myriad Pro;
+	background-image:url(images/bg.jpg) !important;
+	-webkit-background-size: cover !important;
+	-moz-background-size: cover !important;
+	-o-background-size: cover !important;
+	background-size: cover !important;
+}
+.left {
+	position:absolute;
+	top:65px;
+}
+.cent {
+text-align:center;
+}
+.footer {
+padding:20px;
+background:#eee;
+text-align:center;	
+}
+label {
+	color:#003;
+	font-weight:bold;	
+}
+
+tr:nth-child(even) {background: #f0f0f0;  height:30px}
+tr:nth-child(odd) {background: #FFF; height:30px}
+tr td{font-size:13px;}
+
+.app-home {
+	margin-left:50px;
+	margin-right:50px;
+	font-weight:bold;
+}
+
+.sec {
+	background:#eee;
+	margin-bottom:10px;
+	border-radius:10px;	
+	padding:10px;
+}
+
+.tp {
+	
+	padding-bottom:10px;
+}
+
+.app-code {
+	padding:7px !important; 
+	background:#000 !important; 
+	color:#FFF !important; 
+	width:100% !important;	
+}
+.widget-header{
+	margin-bottom:-10px;
+}
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+	.coc_form {
+		background-image:url(images/bg.jpg) !important;
+		-webkit-background-size: cover !important;
+		-moz-background-size: cover !important;
+		-o-background-size: cover !important;
+		background-size: cover !important;
+	}
+	
+	.table-advance tr:nth-child(even) {
+		background: #f0f0f0 !important; 
+		height:10px !important
+		}
+		
+	.table-advance tr:nth-child(odd) {
+		background: #FFF !important; 
+		height:10px !important
+		}
+		
+	.footer {
+		padding:20px !important;
+		background:#eee !important;
+		text-align:center !important;	
+		}
+	
+	.app-code {
+		padding:7px !important; 
+		background:#000 !important; 
+		color:#FFF !important; 
+		width:100% !important;	
+	}
+	table-bordered th,table-bordered td{border:1px solid #ddd!important}
+	table-bordered{border-top:0} table-bordered.table-force-topborder{border-top:1px solid #ddd} table-bordered.dataTable{border-top:1px solid #ddd} table-bordered.dataTable.dataTable-noheader{border-top:0} table-bordered, table-bordered thead:first-child tr:first-child>th:first-child, table-bordered tbody:first-child tr:first-child>td:first-child, table-bordered tbody:first-child tr:first-child>th:first-child, table-bordered thead:first-child tr:first-child>th:last-child, table-bordered tbody:first-child tr:first-child>td:last-child, table-bordered tbody:first-child tr:first-child>th:last-child, table-bordered thead:last-child tr:last-child>th:first-child, table-bordered tbody:last-child tr:last-child>td:first-child, table-bordered tbody:last-child tr:last-child>th:first-child, table-bordered tfoot:last-child tr:last-child>td:first-child, table-bordered tfoot:last-child tr:last-child>th:first-child, table-bordered thead:last-child tr:last-child>th:last-child, table-bordered tbody:last-child tr:last-child>td:last-child, table-bordered tbody:last-child tr:last-child>th:last-child, table-bordered tfoot:last-child tr:last-child>td:last-child, table-bordered tfoot:last-child tr:last-child>th:last-child{-webkit-border-radius:0 !important;-moz-border-radius:0 !important;border-radius:0 !important}
+	tr td{font-size:13px;}
+	.alert{
+		display:none;
+	}
+	.page-break  { display:block; page-break-before:always; }
+}

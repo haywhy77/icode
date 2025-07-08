@@ -1,0 +1,637 @@
+<div class="row">
+    <div class="col-12 col-lg-3">
+
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="user user--bordered user--xlg margin-bottom-20">
+                            <img src="{{@BASE}}/{{@staff->passport}}">
+                            <div class="user__name">
+                                <strong>{{@staff->names}}</strong><br>
+                                <span class="text-muted">{{@staff->position}}</span>
+                                <div class="rating_readonly" data-score="4"></div>
+                                <script type="text/javascript">
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        $(".rating_readonly").raty({readOnly: true});
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            
+            <div class="card-body">
+                <h4>Other Uploaded Documents</h4>
+                <ul class="list-group margin-bottom-20 ">
+                    <repeat group="{{ @staff->documents }}" key="{{@key}}" value="{{ @doc }}" counter="{{@count}}">
+                        <div class="input-group padding-top-5">
+                            <span class="input-group-text">
+                                {{@count}}
+                            </span>
+                            <input type="text"  class="form-control" readonly value="{{str_replace('ui/uploads/','', @doc)}}">
+                            <span class="input-group-text data-download" style="cursor: pointer;" data-url="{{@BASE}}/{{@doc}}">
+                                <i class="fa fa-download"></i>
+                            </span>
+                        </div>
+                    </repeat>
+                </ul>
+            </div>
+            <div class="card-body">
+
+                <h5>Contact Information</h5>
+                <p>
+                    <span class="caption">Email Address:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@staff->email)}}</true>
+                        <false>{{@staff->email}}</false>
+                    </check>
+                </p>
+                <p>
+                    <span class="caption">Phone Number:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@staff->phone)}}</true>
+                        <false>{{@staff->phone}}</false>
+                    </check>
+                </p>
+                <p>
+                    <span class="caption">Address:</span><br>
+                    {{@staff->address}}
+                </p>
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+
+                <h5>Custom Information</h5>
+                <p>
+                    <span class="caption">LinkedIn:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@staff->linkedIn_url)}}</true>
+                        <false>{{@staff->linkedIn_url}}</false>
+                    </check>
+                </p>
+                <p class="margin-bottom-30">
+                    <span class="caption">Portfolio:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@staff->portfolio_url)}}</true>
+                        <false>{{@staff->portfolio_url}}</false>
+                    </check>
+                </p>
+
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+
+                <h5>Skills</h5>
+
+                <p>
+                    <repeat group="{{ @staff->skills }}" key="{{@key}}" value="{{ @skill }}" counter="{{@count}}">
+                        <span class="tag tag--transparent tag--block tag--sm">{{@skill}}</span>
+                    </repeat>
+                </p>
+
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="col-12 col-lg-9">
+        <div class="row">
+            <div class="col-12">
+                <check if="{{@SESSION.account=='ADMIN'}}">
+                    <true>
+                        <div class="row">
+                            <div class="col-2 pb-2">
+                                <button class="btn btn-secondary btn-block btn-click" data-href="{{@BASE}}/staff/{{@staff->id}}">Overview</button>
+                            </div>
+                            <div class="col-2 pb-2">
+                                <button class="btn btn-secondary btn-block btn-click" data-href="{{@BASE}}/staff/profile-card/edit/{{@staff->id}}">Fix Profile Card</button>
+                            </div>
+                            
+                            <div class="col-2">
+                                <button class="btn btn-secondary btn-block btn-click" data-href="{{@BASE}}/staff/profile-card/print/{{@staff->id}}" data-target="_blank">Print Profile Card</button>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-secondary btn-block btn-click" data-href="{{@BASE}}/staff/{{@staff->id}}/upload">Upload Documents</button>
+                            </div>
+                            <div class="col-2">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-block btn--icon btn--icon-stacked btn--icon-right"data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download <span class="fa fa-ellipsis-v"></span></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{@BASE}}/{{@staff->resume}}">Resume</a>
+                                        <a class="dropdown-item" href="{{@BASE}}/staff/{{@staff->id}}/download">Doc</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="btn-group">
+                                    <button class="btn btn-danger btn-block btn--icon btn--icon-stacked btn--icon-right"data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACTION <span class="fa fa-ellipsis-v"></span></button>
+                                    <div class="dropdown-menu">
+                                        <repeat group="{{ @statuses }}" key="{{@key}}" value="{{ @status }}">
+                                            <a class="dropdown-item" href="{{@BASE}}/staff/account/update/{{@status}}/{{@staff->id}}">{{ucfirst(@status)}}</a>
+                                        </repeat>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </true>
+                </check>
+            </div>
+            
+        </div>
+
+        <div class="card">
+            <switch expr="{{ @action }}">
+                <case value="profile" break="{{TRUE }}">
+                    <div class="profile-table">
+                        <form method="post" action="{{@BASE}}/staff/update/profile-card">
+                            <input type="hidden" name="id" value="{{@profile->id}}" />
+                            <table>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="38%" class="content">
+                                                <table>
+                                                    <tr>
+                                                        <td width="50%" class="right">Candidate Name </td>
+                                                        <td>{{@profile->names}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="content">Known As </td>
+                                            <td width="38%" class="content">{{@profile->names}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" class="content">
+                                                <table>
+                                                    <tr>
+                                                        <td width="30%" height="70px">Address</td>
+                                                        <td>{{@profile->address}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="content">Contact Number</td>
+                                            <td class="content">{{@profile->phone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content">D.O.B. </td>
+                                            <td class="content">{{@profile->dob}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content">
+                                                <table>
+                                                    <tr>
+                                                        <td width="50%">Date of issue current DBS </td>
+                                                        <td><input type="date" name="date_current_dbs" style="width: 100%;" value="{{array_key_exists('date_current_dbs', @profile->profile_card)?@profile->profile_card.date_current_dbs:''}}" /></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="content">DBS number </td>
+                                            <td class="content"><input type="text" name="dbs_number" style="width: 100%;" value="{{array_key_exists('dbs_number', @profile->profile_card)?@profile->profile_card.dbs_number:''}}" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content">
+                                                <table>
+                                                    <tr>
+                                                        <td width="50%">PIN if applicable  </td>
+                                                        <td><input type="text" name="pin" style="width: 100%;" value="{{array_key_exists('pin', @profile->profile_card)?@profile->profile_card.pin:''}}" /></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="content">Enhanced DBS</td>
+                                            <td class="content">
+                                                <input type="text" name="enhance_dbs" style="width: 100%;" value="{{array_key_exists('enhance_dbs', @profile->profile_card)?@profile->profile_card.enhance_dbs:''}}" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="70%" class="content">DBS risk assessment in place as required Printable/Online :  Current Employers DBS  </td>
+                                            <td class="content"><input type="text" name="risk_assessment" style="width: 100%;" value="Not required" value="{{array_key_exists('risk_assessment', @profile->profile_card)?@profile->profile_card.risk_assessment:''}}" /> </td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="70%" class="content">DBS Employer Name: Deen Consult Services Ltd</td>
+                                            <td class="content">Yes</td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="25%" class="content">Job Role to be Undertaken </td>
+                                            <td width="30%" class="content"><input type="text" name="job_role" style="width: 100%;" value="{{@profile->position}}" /></td>
+                                            <td class="content">ID Badge: <input type="text" name="id_barge" style="width: 50%;" value="{{array_key_exists('id_barge', @profile->profile_card)?@profile->profile_card.id_barge:''}}" /></td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <table>
+                                                        <tr>
+                                                            <td width="50%" class="right">Checks </td>
+                                                            <td>Confirmed</td>
+                                                        </tr>
+                                                    </table>
+                                                </th>
+                                                <th>Insert Photo Below </th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td width="55%" class="content">
+                                                <table>
+                                                    <tr><td width="50%" class="right">Staff eligible to work in the UK: 
+                                                        Passport </td> 
+                                                        <td> 
+                                                            <input type="checkbox" name="eligibility" {{array_key_exists('eligibility', @profile->profile_card) && @profile->profile_card.eligibility=='on'?'checked':''}}/> 
+                                                    </td></tr>
+                                                    <tr><td class="right">Visa (up to date)</td> <td> <input type="checkbox" name="visa_eligibility" {{array_key_exists('visa_eligibility', @profile->profile_card) && @profile->profile_card.visa_eligibility=='on'?'checked':''}} /></td></tr>
+                                                </table>
+                                            </td>
+                                            <td rowspan="4" class="content"><img src="{{@BASE}}/{{@profile->passport}}" width="40%" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content">
+                                                <table>
+                                                    <tr><td width="50%" class="right">Confirmation of Identity:</td> <td> <input type="checkbox" name="identity" {{array_key_exists('identity', @profile->profile_card) && @profile->profile_card.identity=='on'?'checked':''}} /></td></tr>
+                                                    <tr><td class="right">Birth Certificate </td> <td> <input type="checkbox" name="birth_certificate" {{array_key_exists('birth_certificate', @profile->profile_card) && @profile->profile_card.birth_certificate=='on'?'checked':''}} /></td></tr>
+                                                    <tr><td class="right">Proof of Address </td> <td> <input type="checkbox" name="poa" {{array_key_exists('poa', @profile->profile_card) && @profile->profile_card.poa=='on'?'checked':''}} /></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="content">
+                                                <table>
+                                                    <tr><td width="50%" class="right">References received </td> <td> <input type="checkbox" name="ref_recieved" {{array_key_exists('ref_recieved', @profile->profile_card) && @profile->profile_card.ref_recieved=='on'?'checked':''}} /></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%" class="content">
+                                                <table>
+                                                    <tr><td width="50%" class="right">Driving License/Insurance </td> <td> <input type="checkbox" name="has_driver_license" {{array_key_exists('has_driver_license', @profile->profile_card) && @profile->profile_card.has_driver_license=='on'?'checked':''}} /></td></tr>
+                                                </table>
+                                            </td>
+                                        
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="50%" class="content">All required paperwork checked:   <input type="checkbox" name="all_papers_checked" {{array_key_exists('all_papers_checked', @profile->profile_card) && @profile->profile_card.all_papers_checked=='on'?'checked':''}} /> </td>
+                                            <td class="content">Mandatory training up to date:   <input type="checkbox" name="man_training_attended" {{array_key_exists('man_training_attended', @profile->profile_card) && @profile->profile_card.man_training_attended=='on'?'checked':''}} /> </td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="50%" class="content">Registered under the disability act:   <input type="checkbox" name="registered_under_disability_act" {{array_key_exists('registered_under_disability_act', @profile->profile_card) && @profile->profile_card.registered_under_disability_act=='on'?'checked':''}}  /> </td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <tr>
+                                            <td width="50%" class="content">Staff happy to work under Deen Consult Services policies and procedures: Yes✓  </td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                                <tr><td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th width="45%">Training  </th>
+                                                <th width="20%" heigth="10px"> 
+                                                    <table>
+                                                        <tr><td>Undertaken</td></tr>
+                                                        <tr><td>(Yes / No) </td></tr>
+                                                    </table>
+                                                </th>
+                                                <th>Date of Expiry  </th>
+                                            </tr>
+                                        </thead>
+                                        <repeat group="{{@trainings}}" key="{{@key}}" value="{{@train}}">
+                                            <tr>
+                                                <td class="content">{{@train.name}}</td>
+                                                <td class="content"> <input type="checkbox" name="training_{{@key+1}}" {{@train.value=='Yes✓'?'checked':''}} /> </td>
+                                                <td class="content"><input type="date" name="training_{{@key+1}}_date" style="width: 100%;" value="{{@train.date}}" /></td>
+                                            </tr>
+                                        </repeat>
+                                        
+                                    </table>
+                                </td></tr>
+                                <tr><td style="padding: 20px;">
+                                    <table>
+                                        <tr>
+                                            <td width="20%">Form completed by:</td>
+                                            <td> <input type="text" name="completed_by" style="width: 100%;" value="{{array_key_exists('completed_by', @profile->profile_card)?@profile->profile_card.completed_by:''}}" required /></td>
+                                            <td>Signature:</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Position: </td>
+                                            <td> <input type="text" name="who_position" style="width: 100%;" value="{{array_key_exists('who_position', @profile->profile_card)?@profile->profile_card.who_position:''}}" required/></td>
+                                            <td>Date:</td>
+                                            <td><input type="date" name="completed_on" style="width: 100%;" value="{{array_key_exists('completed_on', @profile->profile_card)?@profile->profile_card.completed_on:''}}" required/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date faxed/emailed:</td>
+                                            <td colspan="3"> <input type="date" name="date_faxed" style="width: 48%;" value="{{array_key_exists('date_faxed', @profile->profile_card)?@profile->profile_card.date_faxed:''}}" required/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date received by Client:</td>
+                                            <td colspan="3"> <input type="date" name="date_recieved_client" style="width: 48%;" value="{{array_key_exists('date_recieved_client', @profile->profile_card)?@profile->profile_card.date_recieved_client:''}}" required/></td>
+                                        </tr>
+                                    </table>
+                                </td></tr>
+                            </table>
+                            <div>
+                                <button type="submit" class="btn btn-secondary">Clear Staff</button>
+                            </div>    
+                        </form>
+                        
+                    </div>
+                    
+                </case>
+                <default>
+                    <div class="widget invert widget--items-middle">
+                        <div class="widget__icon_layer widget__icon_layer--right">
+                            <span class="li-folder-user"></span>
+                        </div>
+                        <div class="widget__container">
+                            <div class="widget__line">
+                                <div class="widget__icon">
+                                    <span class="li-folder"></span>
+                                </div>
+                                <div class="widget__title">Staff posting</div>
+                                <div class="widget__subtitle">List of posting</div>
+                            </div>
+                            
+                            <div class="widget__box">
+                                <check if="{{@staff->status=='ACTIVE'}}">
+                                    <true>
+                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">Post Staff</button>
+                                        <div class="btn-group">
+                                            <button class="btn btn-danger btn-block btn--icon btn--icon-stacked btn--icon-right"data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <span class="fa fa-ellipsis-v"></span></button>
+                                            <div class="dropdown-menu">
+                                                
+                                                <check if="{{@staff->status=='ACTIVE'}}">
+                                                    <true>
+                                                        <a class="dropdown-item client-action" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to DEACTIVATE this staff account?" data-client="{{@staff->id}}" data-action="{{@BASE}}/staff/action/update" data-todo="DEACTIVATED">Deactivate</a>
+                                                    </true>
+                                                </check>
+                                                <check if="{{@staff->status=='DEACTIVATED'}}">
+                                                    <false>
+                                                        <a class="dropdown-item client-action" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="Are you sure you want to ACTIVATE this staff account?" data-client="{{@staff->id}}" data-action="{{@BASE}}/staff/action/update" data-todo="ACTIVE">Activate</a>
+                                                    </false>
+                                                </check>
+                                                
+                                                
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item client-action" href="#" data-bs-toggle="modal" data-bs-target="#employModal" data-text="You are about to DELETE this staff account. Do you want to continue?" data-client="{{@staff->id}}" data-action="{{@BASE}}/staff/action/update" data-todo="DELETED">Trash Account</a>
+                                            </div>
+                                        </div>
+                                    </true>
+                                    <false>
+                                        <button type="button" class="btn btn-secondary btn-lg client-action" data-bs-toggle="modal" data-bs-target="#exampleModal" data-text="You are about to ACTIVATE this staff account. Do you want to continue?" data-client="{{@staff->id}}" data-action="{{@BASE}}/staff/action/update" data-todo="ACTIVE">Activate Account</button>
+                                    </false>
+                                </check>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" style="min-height:330px;">
+                            <table class="table table-indent-rows margin-bottom-0 data-staff">
+                                <thead>
+                                    <tr>
+                                        <th width="100">
+                                            <label class="form-check-label">#</label>
+                                        </th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th >Email</th>
+                                        <th width="200">Contact Number</th>
+                                        <th width="200">Phone</th>
+                                        <th width="150">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <repeat group="{{ @companies.data }}" key="{{@key}}" value="{{ @company }}" counter="{{@count}}">
+                                        <tr>
+                                            <td><label class="form-check-label">{{@count}}</label></td>
+                                            <td>{{@company.created_at}}</td>
+                                            <td>
+                                                <strong>{{@company.names}}</strong>
+                                            </td>
+                                            <td>{{@company.email}}</td>
+                                            <td>{{@company.phone}}</td>
+                                            <td>{{@company.phone}}</td>
+                                            <td>
+                                                <div class="btn {{@company.c_status=='ACTIVE'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@company.c_status}}</div>
+                                            </td>
+                                        </tr>
+                                    </repeat>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <include href="includes/pagination.html" with="data={{@companies}}, url='/candidates/{{@staff->id}}'" />
+                    </div>
+
+
+                    <div class="modal fade bd-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <form method="post" action="#">
+                                <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+                                <input class="record" type="hidden" name="record" />
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Staff Posting</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                            <input type="text" class="form-control search" name="search" placeholder="Search with staff name">
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-indent-rows margin-bottom-0 search-record">
+                                                <tbody>
+                                                    <repeat group="{{ @clients }}" key="{{@key}}" value="{{ @client }}" counter="{{@count}}">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label">{{@count}}</label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <strong>{{@client['names']}}</strong>
+                                                            </td>
+                                                            <td>{{@client["email"]}}</td>
+                                                            <td>{{@client["phone"]}}</td>
+                                                            <td>
+                                                                <div class="btn {{@client["status"]=='ACTIVE'?'btn-outline-success':'btn-outline-danger'}} btn-block disabled btn-sm">{{@client["status"]}}</div>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-secondary btn-submit {{@client['status']=='DEACTIVATED'?'disabled':''}}" data-client="{{@client['id']}}" data-staff="{{@staff->id}}" data-url="{{@BASE}}/">Select</button>
+                                                            </td>
+                                                        </tr>
+                                                    </repeat>    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <label>Resumption Date</label>
+                                                <input type="date" name="date" class="form-control" style="width: 250px;" required="required">
+                                                <span class="form-text margin-top-0">Enter the date for resumption</span>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label>Resumption Time</label>
+                                                <input type="time" name="time" class="form-control" style="width: 250px;" required="required">
+                                                <span class="form-text margin-top-0">Enter the time</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Roles</label>
+                                            <select class="form-control" aria-hidden="true" name="role" required >
+                                                <repeat group="{{ @roles }}" key="{{@key}}" value="{{ @role }}">
+                                                    <option value="{{@role.name}}">{{@role.name}}</option>
+                                                </repeat>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Type of Employment</label>
+                                            <select class="form-control" aria-hidden="true" name="location" required >
+                                                <option value="ONSITE">ONSITE</option>
+                                                <option value="REMOTE">REMOTE</option>
+                                                <option value="HYBRID">HYBRID</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Post Staff</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="#" method="post">
+                                <input class="client_user_id" type="hidden" name="client_user_id"/>
+                                <input class="client_action" type="hidden" name="client_action"/>
+                                <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Warning!!!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body alert-body-text"></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Yes, continue</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </default>
+            </switch>
+        </div>
+
+    </div>
+    
+</div>
+
+
+
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        $(".search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".search-record > tbody > tr").filter(function() {      
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        $(".search-record > tbody > tr >td>button").on("click", function() {  
+            let rec=$(".record").val();
+            let records=rec? JSON.parse(rec):[];
+            // console.log("Before: ", records)
+            var client = $(this).attr("data-client");
+            var staff = $(this).attr("data-staff");
+            var url = $(this).attr("data-url");
+            const obj={client, staff, url}
+            $(".search-record > tbody > tr >td").children('button').each(function(){
+                $(this).removeClass('btn-success').addClass('btn-secondary').text("Select");
+            })
+            // if(records.length>0){
+            //     const index=records.findIndex(x=>x.client==client && x.staff==staff);
+            //     if(index >- 1){
+            //         records.splice(index, 1);
+            //         $(".record").val(JSON.stringify(records));
+            //         $(this).removeClass('btn-success').addClass('btn-secondary').text("Select");
+            //         return false;
+            //     }
+            // }
+            records.push(obj);
+            // console.log("After: ", records)
+            $(".record").val(JSON.stringify(records));
+            $(this).removeClass('btn-secondary').addClass('btn-success').text("Selected");
+            $(this).closest("form").attr('action', "{{@BASE}}/employers/"+client+"/post-staff")
+        });
+    
+        $(".data-staff > tbody > tr >td>button.delete").on("click", function() { 
+            var value = $(this).attr("data-client");
+            var text = $(this).attr("data-text");
+            var action = $(this).attr("data-action");
+            $('.alert-body-text').html(text);
+            $('.alert-body-text').closest("form").attr('action', action);
+            $(".client_user_id").val(value);
+        })
+
+        $(".client-action").on("click", function() { 
+            var value = $(this).attr("data-client");
+            var text = $(this).attr("data-text");
+            var action = $(this).attr("data-action");
+            var todo = $(this).attr("data-todo");
+            
+            $('.alert-body-text').html(text);
+            $('.alert-body-text').closest("form").attr('action', action);
+            $(".client_user_id").val(value);
+            $(".client_action").val(todo)
+        })
+        
+        $(".data-download").on("click", function(e){
+            var file=$(this).attr('data-url');
+            window.open(file, "_blank");
+            // window.location.href=file;
+        })
+    });
+    
+</script>

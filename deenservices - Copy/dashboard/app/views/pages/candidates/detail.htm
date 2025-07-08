@@ -1,0 +1,564 @@
+<div class="row">
+    <div class="col-12 col-lg-3">
+
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="user user--bordered user--xlg margin-bottom-20">
+                            <check if="{{@SESSION.account=='CLIENT'}}">
+                                <true>
+                                    <img src="{{@BASE}}/ui/assets/user.jpeg">
+                                </true>
+                                <false>
+                                    <img src="{{@BASE}}/{{@profile->passport}}">
+                                </false>
+                            </check>
+                            <div class="user__name">
+                                <strong>{{@profile->name}}</strong><br>
+                                <span class="text-muted">Applicant</span>
+                                <div class="rating_readonly" data-score="4"></div>
+                                <script type="text/javascript">
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        $(".rating_readonly").raty({readOnly: true});
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <check if="{{@SESSION.account=='ADMIN'}}">
+                    <true>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-secondary btn-block btn-click" data-href="{{@BASE}}/{{@profile->default_resume}}" data-target="_blank">Download Resume</button>
+                            </div>
+                            <!--<div class="col-12 pt-4">-->
+                            <!--    <button class="btn btn-secondary btn-block btn-click" data-href="{{@BASE}}/candidate/profile/{{@profile->id}}" data-target="_blank">Print profile</button>-->
+                            <!--</div>-->
+                        </div>
+                        
+                    </true>
+                </check>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+
+                <h5>Contact Information</h5>
+                <p>
+                    <span class="caption">Email Address:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@profile->email)}}</true>
+                        <false>{{@profile->email}}</false>
+                    </check>
+                </p>
+                <p>
+                    <span class="caption">Phone Number:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@profile->phone)}}</true>
+                        <false>{{@profile->phone}}</false>
+                    </check>
+                </p>
+                <p>
+                    <span class="caption">Location:</span><br>
+                    {{@profile->location}}
+                </p>
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+                <h4>Other Uploaded Documents</h4>
+                <ul class="list-group margin-bottom-20 ">
+                    <repeat group="{{ @profile->documents }}" key="{{@key}}" value="{{ @doc }}" counter="{{@count}}">
+                        <div class="input-group padding-top-5">
+                            <span class="input-group-text">
+                                {{@count}}
+                            </span>
+                            <input type="text"  class="form-control" readonly value="{{str_replace('ui/uploads/','', @doc)}}">
+                            <span class="input-group-text data-download" style="cursor: pointer;" data-url="{{@BASE}}/{{@doc}}">
+                                <i class="fa fa-download"></i>
+                            </span>
+                        </div>
+                    </repeat>
+                </ul>
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+
+                <h5>Custom Information</h5>
+                <p>
+                    <span class="caption">LinkedIn:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@profile->linkedIn_url)}}</true>
+                        <false>{{@profile->linkedIn_url}}</false>
+                    </check>
+                </p>
+                <p class="margin-bottom-30">
+                    <span class="caption">Portfolio:</span><br>
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>{{@maskString(@profile->portfolio_url)}}</true>
+                        <false>{{@profile->portfolio_url}}</false>
+                    </check>
+                </p>
+
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+
+                <h5>Skills</h5>
+
+                <p>
+                    <repeat group="{{ @profile->skills }}" key="{{@key}}" value="{{ @skill }}" counter="{{@count}}">
+                        <span class="tag tag--transparent tag--block tag--sm">{{@skill}}</span>
+                    </repeat>
+                </p>
+
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="col-12 col-lg-9">
+        
+
+        <div class="card">
+            <div class="widget invert widget--items-middle">
+                <div class="widget__icon_layer widget__icon_layer--right">
+                    <span class="li-folder-user"></span>
+                </div>
+                <div class="widget__container">
+                    <check if="{{@SESSION.account=='CLIENT'}}">
+                        <true>
+                            <div class="widget__line">
+                                <div class="widget__icon">
+                                    <span class="li-user"></span>
+                                </div>
+                                <div class="widget__title">Request this applicant</div>
+                                <div class="widget__subtitle">If you want this applicant, send a hunt request to the admin for interview</div>
+                            </div>
+                        </true>
+                        <false>
+                            <div class="widget__line">
+                                <div class="widget__icon">
+                                    <span class="li-folder"></span>
+                                </div>
+                                <div class="widget__title">Applications</div>
+                                <div class="widget__subtitle">List of Applications</div>
+                            </div>
+                        </false>
+                    </check>
+                    
+                    <div class="widget__box">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+
+                    <h5>About {{@SESSION.account=='USER' ?'me': 'Applicant'}}</h5>
+    
+                    <p class="text-muted margin-bottom-20">{{@profile->about_me}}</p>
+    
+                </div>
+                <hr>
+                <check if="{{@SESSION.account=='CLIENT'}}">
+                    <true>
+                        <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+                            <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                                {{ @msg.text }}
+                            </div>
+                        </repeat>
+                        <form method="post" action="{{@BASE}}/applicant/scout">
+                            <input type="hidden" name="cand_id" value="{{@profile->id}}" />
+                            <input type="hidden" name="client_id" value="{{@SESSION.user_id}}" />
+                            
+                            <div class="form-group">
+                                <label>Remark</label>
+                                <textarea class="form-control editor" name="remark" ></textarea>
+                            </div>
+                            <hr/>
+                            
+                            <div class="form-group" id="sign_button">
+                                <button type="submit" class="btn btn-secondary">Send Request</button>
+                            </div>
+                        </form>
+                    </true>
+                    <false>
+                        <div class="table-responsive" style="min-height:330px;">
+                            <table class="table table-indent-rows margin-bottom-0 data-table">
+                                <thead>
+                                    <tr>
+                                        <th width="50">
+                                            <label class="form-check-label">#</label>
+                                        </th>
+                                        <th>Job Title</th>
+                                        <th >Role</th>
+                                        <th>Job Location</th>
+                                        <th>Salary Range</th>
+                                        <th>Job Gender</th>
+                                        <th>Date Applied</th>
+                                        <th>Status</th>
+                                        <check if="{{@SESSION.account=='ADMIN'}}">
+                                            <true>
+                                                <th width="150"></th>
+                                            </true>
+                                        </check>
+        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <repeat group="{{ @applications.data }}" key="{{@key}}" value="{{ @job }}" counter="{{@count}}">
+                                        <tr>
+                                            <td><label class="form-check-label">{{@count}}</label></td>
+                                            <td>
+                                                <strong>{{@job.job_title}}</strong>
+                                            </td>
+                                            <td>{{@job.field}}</td>
+                                            <td>{{@job.location}}</td>
+                                            <td>{{@job.salary_range}}</td>
+                                            <td>{{@job.gender}}</td>
+                                            <td>{{@job.created_at}}</td>
+                                            <td>
+                                                <button class="btn btn-outline-{{@job.status=='APPROVED'?'success':(@job.status=='REJECTED'?'danger':'warning')}} btn-block btn-sm">{{@job.status}}</button>    
+                                            </td>
+                                            <td>
+                                                <!--<check if="{{@SESSION.account=='USER'}}">-->
+                                                <!--    <true>-->
+                                                <!--        <button class="btn btn-secondary btn-sm btn-click" data-href="{{@BASE}}/candidate/application/{{@job.id}}/upload">Upload Documents</button>-->
+                                                <!--    </true>-->
+                                                <!--</check>-->
+                                                
+                                                <check if="{{@SESSION.account=='ADMIN'}}">
+                                                    <true>
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-info btn-block btn--icon btn--icon-stacked btn--icon-right" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <span class="fa fa-ellipsis-v"></span></button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item cover-letter" href="#" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-values="{{@job.cover_letter}}">View Cover Letter</a>
+                                                                <a class="dropdown-item " href="{{@BASE}}/{{@job.resume}}" target="_blank">Download Resume</a>
+                                                                <check if="{{@job.status=='PENDING' or @job.status=='REJECTED'}}">
+                                                                    <true>
+                                                                        <a class="dropdown-item call-action" href="#" data-bs-toggle="modal" data-bs-target="#approveModal" data-values="{{@job.id}}">Approve</a>
+                                                                    </true>
+                                                                </check>
+                                                                
+                                                                <a class="dropdown-item call-action" href="#" data-bs-toggle="modal" data-bs-target="#disqualifyModal" data-values="{{@job.id}}">Reject</a>
+                                                                <check if="{{@job.status=='APPROVED'}}">
+                                                                    <true>
+                                                                        <a class="dropdown-item call-action" href="#" data-bs-toggle="modal" data-bs-target="#interviewModal" data-values="{{@job.id}}">Schedule Interview</a>
+                                                                    </true>
+                                                                </check>
+                                                                
+                                                                <check if="{{@job.status=='INREVIEW'}}">
+                                                                    <true>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item call-action" href="#" data-bs-toggle="modal" data-bs-target="#employModal" data-values="{{@job.id}}">Employ Applicant</a>
+                                                                    </true>
+                                                                </check>
+                                                            </div>
+                                                        </div>
+                                                    </true>
+                                                </check>
+                                                
+                                            </td>
+                                        </tr>
+                                    </repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                        <include href="includes/pagination.html" with="data={{@applications}}, url='/candidates/{{@profile->id}}'" />
+                    </false>
+                </check>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form method="post" action="">
+            <input class="record" type="hidden" name="record" />
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cover Letter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body cover-letter-content">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="interviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{@BASE}}/applications/{{@profile->id}}/update">
+            <input type="hidden" name="applicant" value="{{@profile->id}}" />
+            <input class="appId" type="hidden" name="appId" value="" />
+            <input type="hidden" name="status" value="INTERVIEW" />
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content invert">
+                <div class="modal-header">
+                    <h5 class="modal-title">Schedule for Interview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body content">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Schedule Date</label>
+                                <input type="date" name="date" class="form-control" style="width: 250px;" required="required">
+                                <span class="form-text margin-top-0">Enter the date for interview</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Schedule Time</label>
+                                <input type="time" name="time" class="form-control" style="width: 250px;" required="required">
+                                <span class="form-text margin-top-0">Enter the time</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <select class="form-control" aria-hidden="true" name="location" required >
+                            <option value="PHYSICAL">PHYSICAL</option>
+                            <option value="VIRTUAL">VIRTUAL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Meeting URL</label>
+                        <input type="text" name="meeting_url" class="form-control" style="width: 250px;" required="required">
+                        <span class="form-text margin-top-0">Enter the zoom meeting link</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Remark</label>
+                        <textarea name="remark" required placeholder="Remark" rows="5%" cols="60%"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-closes" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-process">Schedule Interview</button>
+                </div>
+            </div>    
+        </form>
+        
+    </div>
+</div>
+
+<div class="modal fade" id="approveModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{@BASE}}/applications/{{@profile->id}}/update">
+            <input type="hidden" name="applicant" value="{{@profile->id}}" />
+            <input class="appId" type="hidden" name="appId" value="" />
+            <input type="hidden" name="status" value="APPROVE" />
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content invert">
+                <div class="modal-header">
+                    <h5 class="modal-title">Approve Application</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Remark</label>
+                        <textarea name="remark" required placeholder="Remark" rows="5%" cols="60%"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-closes" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-process">Approve</button>
+                </div>
+            </div>    
+        </form>
+        
+    </div>
+</div>
+
+<div class="modal fade" id="disqualifyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{@BASE}}/applications/{{@profile->id}}/update">
+            <input type="hidden" name="applicant" value="{{@profile->id}}" />
+            <input class="appId" type="hidden" name="appId" value="" />
+            <input type="hidden" name="status" value="REJECT" />
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content invert">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reason for disqualification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Remark</label>
+                        <textarea name="remark" required placeholder="Reason for disqualification" rows="5%" cols="60%"></textarea>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-closes" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-process">Disqualify Candidate</button>
+                </div>
+            </div>    
+        </form>
+        
+    </div>
+</div>
+
+
+<div class="modal fade" id="employModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{@BASE}}/applications/{{@profile->id}}/update">
+            <input type="hidden" name="applicant" value="{{@profile->id}}" />
+            <input class="appId" type="hidden" name="appId" value="" />
+            <input type="hidden" name="status" value="EMPLOYED" />
+            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+            <div class="modal-content invert">
+                <div class="modal-header">
+                    <h5 class="modal-title">Employment Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Resumption Date</label>
+                            <input type="date" name="date" class="form-control" style="width: 250px;" required="required">
+                            <span class="form-text margin-top-0">Enter the date for interview</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Resumption Time</label>
+                            <input type="time" name="time" class="form-control" style="width: 250px;" required="required">
+                            <span class="form-text margin-top-0">Enter the time</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Type of Employment</label>
+                        <select class="form-control" aria-hidden="true" name="employment_type" required >
+                            <option value="ONSITE">ONSITE</option>
+                            <option value="REMOTE">REMOTE</option>
+                            <option value="HYBRID">HYBRID</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Remark</label>
+                        <textarea name="remark" required placeholder="Remark" rows="5%" cols="60%"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-closes" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-process">Employ Applicant</button>
+                </div>
+            </div>    
+        </form>
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+     document.addEventListener("DOMContentLoaded", function () {
+        $(".search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".search-record > tbody > tr").filter(function() {      
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        $(".data-table > tbody > tr >td>button").on("click", function() {  
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            
+            
+            var id = $(this).attr("data-id");
+            var values=$(this).attr('data-values');
+            $('.modal-body').html(values)
+            
+            
+            $(".record").val(id);
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        });
+        $(".data-table > tbody > tr > td >div>.dropdown-menu>.cover-letter").on("click", function() {  
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            
+            
+            var id = $(this).attr("data-id");
+            var values=$(this).attr('data-values');
+            $('.cover-letter-content').html(values)
+            
+            
+            
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        });
+        $(".data-table > tbody > tr > td >div>.dropdown-menu>.call-action").on("click", function() {  
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            
+            
+            var id = $(this).attr("data-id");
+            var values=$(this).attr('data-values');
+            $('.appId').val(values);
+            
+            
+            
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        });
+
+        $(".btn-process").on("click", function() {
+            
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            var form = $(this).closest('form');
+            
+            
+            var url=$(form).attr('action');
+            
+            var values=$(form).serializeArray();
+            console.log(values)
+            // $(".alert-body").html(values);
+            
+            
+            
+            $.post(url, values, function(data, error){
+                console.log(data, error);
+                
+                if(data.status){
+                    $(".btn-closes").trigger( "click" );
+                    window.location.reload();
+                }else{
+                    $(".btn-closes").trigger( "click" );
+                    $(".alert-body").html(data.message);
+                    $(".modal-trigger").trigger( "click" );
+                }
+            })
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+            
+        });
+
+        $(".data-download").on("click", function(e){
+            var file=$(this).attr('data-url');
+            window.open(file, "_blank");
+            // window.location.href=file;
+        })
+        
+        $('.editor').editor({"height" : "350px"});
+    });
+    
+</script>

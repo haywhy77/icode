@@ -1,0 +1,38 @@
+<set query="{{@SERVER['QUERY_STRING']}}" />
+<set url={{str_replace(@query, "", @SERVER['REQUEST_URI'])}} />
+<div class="row margin-bottom-20">
+    <div class="col-12 col-lg-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <check if="{{@data.currentPage>1}}">
+                    <true><li class="page-item"><a class="page-link" href="{{@BASE}}{{@url}}{{@query?'?'.@query.'&':'?'}}page={{@data.currentPage - 1}}">Previous</a></li></true>
+                    <false><li class="page-item disabled"><a class="page-link" href="#">Previous</a></li></false>
+                </check>
+                <check if="{{@data.totalPages>1}}">
+                    <true>
+                        <set start="1" />
+                        <set limit="5" />
+                        <set total="{{ceil(@data.totalPages/@limit)}}" />
+                        <set offset="{{(@data.currentPage-1) * @limit}}" />
+                        <set limitAll="{{@data.currentPage<=@limit ? @limit: @limit}}" />
+                        <!-- {{@data.totalPages}}/{{@total}}/{{@limitAll}} -->
+                        <loop from="{{ @i=1 }}" to="{{ @i <= @limit }}" step="{{ @i++ }}">
+                            <check if="{{@i==@data.currentPage}}">
+                                <true><li class="page-item active"><a class="page-link">{{@i}}</a></li></true>
+                                <false><li class="page-item"><a class="page-link" href="{{@BASE}}{{@url}}{{@query?'?'.@query.'&':'?'}}page={{@i}}">{{@i}}</a></li></false>
+                            </check>
+                        </loop>
+                    </true>
+                    <false>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    </false>
+                </check>
+                
+                <check if="{{@data.currentPage < @data.totalPages}}">
+                    <true><li class="page-item"><a class="page-link" href="{{@BASE}}{{@url}}{{@query?'?'.@query.'&':'?'}}page={{@data.currentPage + 1}}">Next</a></li></true>
+                    <false><li class="page-item"><a class="page-link" href="#">Next</a></li></false>
+                </check>
+            </ul>
+        </nav>
+    </div>
+</div>

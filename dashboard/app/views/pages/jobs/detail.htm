@@ -1,0 +1,254 @@
+<div class="row">
+    <div class="col-12 col-lg-3">
+
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="user user--bordered user--xlg margin-bottom-20">
+                            
+                            <div class="user__name">
+                                <strong>{{@job->job_title}}</strong><br>
+                                <span class="text-muted">STATUS: {{@job->status}}</span>
+                                <div class="rating_readonly" data-score="4"></div>
+                                <script type="text/javascript">
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        $(".rating_readonly").raty({readOnly: true});
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <check if="{{@SESSION.account=='ADMIN'}}">
+                    <true>
+                        <check if="{{!empty(@job->employer_name)}}">
+                            <true>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <check if="{{@job->isApprove=='NO'}}">
+                                            <true><button class="btn btn-success btn-block btn-approve" data-action="ISAPPROVE" data-id="{{@job->id}}" data-value="YES" data-msg="Are you sure you want to approve this job posted by {{@job->client}}?">Approve Job</button></true>
+                                            <false><button class="btn btn-danger btn-block btn-approve" data-action="ISAPPROVE" data-id="{{@job->id}}" data-value="NO" data-msg="Are you sure you want to cancel this job posted by {{@job->client}}?">Cancel job</button></false>
+                                        </check>
+                                    </div>
+                                </div>
+                            </true>
+                        </check>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-12">
+                                <check if="{{@job->status=='OPEN'}}">
+                                    <true><button class="btn btn-secondary btn-block btn-approve" data-action="ISCLOSE" data-id="{{@job->id}}" data-value="CLOSED" data-msg="Are you sure you want to close this application?">Close Application</button></true>
+                                    <false><button class="btn btn-secondary btn-block btn-approve" data-action="ISCLOSE" data-id="{{@job->id}}" data-value="OPEN" data-msg="Are you sure you want to open this application?">Open Application</button></false>
+                                </check>
+                            </div>
+                        </div>
+                    </true>
+                </check>
+                
+                
+            </div>
+            <div class="divider divider--dashed divider--sm"></div>
+            <div class="card-body">
+
+                <h5>Job Details</h5>
+                <p>
+                    <span class="caption">Location:</span><br>
+                    {{@job->location}}
+                </p>
+                <p>
+                    <span class="caption">Role:</span><br>
+                    {{@job->field}}
+                </p>
+                <p>
+                    <span class="caption">Allowed Gender:</span><br>
+                    {{@job->gender}}
+                </p>
+                <p>
+                    <span class="caption">Salary Range:</span><br>
+                    {{@job->salary_range}}
+                </p>
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="col-12 col-lg-9">
+        
+
+        <div class="card">
+            <div class="widget invert widget--items-middle">
+                <div class="widget__icon_layer widget__icon_layer--right">
+                    <span class="li-folder-user"></span>
+                </div>
+                <div class="widget__container">
+                    <div class="widget__line">
+                        <div class="widget__icon">
+                            <span class="li-folder-user"></span>
+                        </div>
+                        <div class="widget__title">Applications</div>
+                        <div class="widget__subtitle">List of Applications</div>
+                    </div>
+                    <div class="widget__box">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 px-4">
+                <div class="col-12">
+                    <include href="includes/filter.html" with="status='PENDING INREVIEW APPROVED REJECTED EMPLOYED'" />
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-indent-rows margin-bottom-0 data-table">
+                        <thead>
+                            <tr>
+                                <th width="50">
+                                    <label class="form-check-label">S/N</label>
+                                </th>
+                                <th>Candidate</th>
+                                <th >Email</th>
+                                <th>Gender</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                                <th width="150">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @applications.data }}" key="{{@key}}" value="{{ @jobs }}" counter="{{@count}}">
+                                <tr>
+                                    <td><label class="form-check-label">{{@count}}</label></td>
+                                    
+                                    <td>{{@jobs.candidate}}</td>
+                                    <td>{{@jobs.email}}</td>
+                                    <td>{{@jobs.gender}}</td>
+                                    <td>{{@jobs.created_at}}</td>
+                                    <td>
+                                        <button class="btn btn-outline-{{@jobs.status=='APPROVED'?'success':(@jobs.status=='REJECTED'?'danger':'warning')}} btn-block btn-sm">{{@jobs.status}}</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info btn-block btn-click" data-href="{{@BASE}}/application/{{@jobs.id}}">View Application</span></button>
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@applications}}, url='/jobs/'.{{@job->id}}" />
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+     document.addEventListener("DOMContentLoaded", function () {
+        $(".search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".search-record > tbody > tr").filter(function() {      
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        $(".data-table > tbody > tr >td>button").on("click", function() {  
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            
+            
+            var id = $(this).attr("data-id");
+            var values=$(this).attr('data-values');
+            $('.modal-body').html(values)
+            
+            
+            $(".record").val(id);
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        });
+        $(".data-table > tbody > tr > td >div>.dropdown-menu>.cover-letter").on("click", function() {  
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            
+            
+            var id = $(this).attr("data-id");
+            var values=$(this).attr('data-values');
+            $('.modal-body').html(values)
+            
+            
+            
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        });
+        $(".data-table > tbody > tr > td >div>.dropdown-menu>.call-action").on("click", function() {  
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            
+            
+            var id = $(this).attr("data-id");
+            var values=$(this).attr('data-values');
+            $('.appId').val(values);
+            
+            
+            
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        });
+
+        $(".btn-process").on("click", function() {
+            app._loading.show($(".modal-dialog"),{spinner: true});
+            var form = $(this).closest('form');
+            
+            
+            var url=$(form).attr('action');
+            
+            var values=$(form).serializeArray();
+            // console.log(values)
+            $.post(url, values, function(data, error){
+                console.log(data, error);
+                if(data.status){
+                    $(".btn-closes").trigger( "click" );
+                    $(".alert-body").html(data.message);
+                    $("#openanydialog").trigger( "click" );
+                }
+                
+            })
+            setTimeout(function(){
+                app._loading.hide($(".modal-dialog"));
+            },2000);
+        })
+        $('.btn-approve').on('click', function(){
+            var msg=$(this).attr("data-msg");
+            if(confirm(msg)){
+                app._loading.show($(".table-responsive"),{spinner: true});
+                const values={
+                    id: $(this).attr('data-id'),
+                    action: $(this).attr('data-action'),
+                    value: $(this).attr('data-value')
+                }
+                
+                $.post("{{@BASE}}/jobs/misc-trash", values, function(data, error){
+                    console.log(data, error);
+                    
+                    if(data.status){
+                        $(".btn-closes").trigger( "click" );
+                        window.location.reload();
+                    }else{
+                        $(".btn-closes").trigger( "click" );
+                        $(".alert-body").html(data.message);
+                        $(".modal-trigger")[0].click;
+                    }
+                    setTimeout(function(){
+                        app._loading.hide($(".table-responsive"));
+                    },2000);
+                })
+            }
+        })
+    });
+    
+</script>

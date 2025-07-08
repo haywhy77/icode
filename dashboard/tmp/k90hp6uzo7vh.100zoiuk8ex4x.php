@@ -1,0 +1,18 @@
+<!-- PAGE HEADING -->
+<div class="page-heading">
+    <div class="page-heading__container">
+        <h1 class="title"><?= ($business) ?>: <?= (isset($page)?$page['title']:"") ?></h1>
+        <p class="caption"><?= (isset($page)?$page['desc']:"") ?></p>
+    </div>
+    <!--    <div class="page-heading__container float-end d-none d-sm-block">
+            <a href="https://themeforest.net/item/the-right-way-bootstrap-4-admin-template/21916885?ref=aqvatarius&license=regular&open_purchase_for_item_id=21916885" target="_blank" class="btn btn-primary btn--icon btn--icon-stacked btn--anon d-none d-lg-block"><span class="text">$24</span> Get template now</a>
+            <a href="https://themeforest.net/item/the-right-way-bootstrap-4-admin-template/21916885?ref=aqvatarius&license=regular&open_purchase_for_item_id=21916885" target="_blank" class="btn btn-primary btn--icon btn--icon-stacked btn--anon d-none d-sm-block d-lg-none"><span class="text">$24</span> Buy</a>
+        </div>-->
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Dashboards</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </nav>
+</div>
+<!-- //END PAGE HEADING -->

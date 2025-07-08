@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="card margin-bottom-0">
+            <div class="card-body">
+        
+                <include href="includes/filter.html" with="status={{'OPEN CLOSED'}}" />
+        
+                <div class="table-responsive margin-top-20">
+                    <table class="table table-striped table-bordered margin-bottom-20" style="min-width: 800px;">
+                        <thead>
+                            <tr>
+                                <th width="50">#</th>
+                                <th width="100">Date</th>
+                                <th>Job title</th>
+                                <th width="100">Type</th>
+                                <th width="150">Skills</th>
+                                <check if="{{@SESSION.account=='ADMIN'}}">
+                                    <true><th>Employer</th></true>
+                                </check>
+                                
+                                <th width="100">Salary Range</th>
+                                <th width="100">No of Applicants</th>
+                                <th width="100">Status</th>
+                                <check if="{{@SESSION.account=='ADMIN'}}">
+                                    <true><th>Approval Status</th></true>
+                                </check>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <repeat group="{{ @jobs.data }}" key="{{@key}}" value="{{ @job }}" counter="{{@count}}">
+                                <tr>
+                                    <td>{{@count}}</td>
+                                    <td>{{@job.created_at}}</td>
+                                    <td><a href="{{@BASE}}/jobs/{{@job.id}}" class="text-danger text-bold">{{@job.job_title}}</a></td>
+                                    <td>{{@job.job_type}}</td>
+                                    <td>{{@job.skills}}</td>
+                                    <check if="{{@SESSION.account=='ADMIN'}}">
+                                        <true><td>{{@job.client}}</td></true>
+                                    </check>
+                                    <td>{{@job.salary_range}}</td>
+                                    <td>{{@job.applicants}}</td>
+                                    
+                                    <td>
+                                        <button class="btn btn-outline-{{@job.status=='OPEN'?'success':'danger'}} btn-block btn-sm">{{@job.status}}</button>
+                                    </td>
+                                    <check if="{{@SESSION.account=='ADMIN'}}">
+                                        <true><td>
+                                            <button class="btn btn-outline-{{@job.isApprove=='YES'?'success':'danger'}} btn-block btn-sm">{{@job.isApprove}}</button>
+                                        </td></true>
+                                    </check>
+                                    <td>
+                                        <button class="btn btn-secondary btn-icon btn-sm btn-click" data-href="{{@BASE}}/jobs/edit/{{@job.id}}"><span class="fa fa-pencil"></span></button>
+                                        <check if="{{@SESSION.account=='ADMIN'}}">
+                                            <true>
+                                                
+                                                <button class="btn btn-secondary btn-icon btn-sm btn-delete" data-value="{{@job.id}}"><span class="fa fa-trash"></span></button>
+                                            </true>
+                                        </check>
+                                        
+                                    </td>
+                                </tr>
+                            </repeat>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <include href="includes/pagination.html" with="data={{@jobs}}, url=/jobs" />
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        $('.btn-delete').on('click', function(){
+            if(confirm("Deleting this job will also remove all applications attached to it. Are you sure you still want to continue?")){
+                app._loading.show($(".table-responsive"),{spinner: true});
+                const values={
+                    id: $(this).attr('data-value'),
+                    action: 'JOBS'
+                }
+                $.post("{{@BASE}}/jobs/misc-trash", values, function(data, error){
+                    console.log(data, error);
+                    
+                    if(data.status){
+                        $(".btn-closes").trigger( "click" );
+                        window.location.reload();
+                    }else{
+                        $(".btn-closes").trigger( "click" );
+                        $(".alert-body").html(data.message);
+                        $(".modal-trigger")[0].click;
+                    }
+                    setTimeout(function(){
+                        app._loading.hide($(".table-responsive"));
+                    },2000);
+                })
+            }
+        })
+    });
+    
+</script>

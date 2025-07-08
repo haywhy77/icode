@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>DeenConsult | signup </title>
+	<link rel="stylesheet" href="{{@BASE}}/{{@ASSETS}}css/styles.css">
+	<link rel="stylesheet" href="../../assets/css/style-freedom.css">
+    <link rel="icon" href="../../assets/images/logo2.png">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+    <section class="w3l-price-2 w3l-register-block">
+        <div class="price-main w3l-register-block-main">
+            <div class="wrapper">
+                <div class="pricing-style-w3ls">
+                    
+                    <fieldset class="w3l-forms-31-right" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+                        <repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+                            <div class="alert alert-{{ @msg.status }} alert-dismissable">
+                                {{ @msg.text }}
+                            </div>
+                        </repeat>
+                        <legend><h3>If you are a employer, signup here</h3></legend>
+                        
+                        <form action="{{@BASE}}/client/signup" method="post" class="register-form client-form">
+                            <input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+                            <div class="form-input">
+                                <label>Company Name</label>
+                                <input type="text" name="company_name" placeholder="Enter your company name" required="" />
+                            </div>
+                            <div class="form-input">
+                                <label>Email Address</label>
+                                <input type="email" name="company_email" placeholder="Enter your company email" required="" />
+                            </div>
+                            <div class="form-input">
+                                <label>Mobile Number</label>
+                                <div class="p-relative">
+                                    <span class="p-absolute">+44</span>
+                                    <input type="number" name="company_number" pattern=".{10,11}" title="5 to 10 characters" placeholder=" Mobile Number" required />
+                                </div>
+                            </div>
+                            <div class="form-input">
+                                <label>Create Password</label>
+                                <input type="password" name="company_password" id="pass1" placeholder="Minimum 6 characters"
+                                    required="" />
+                            </div>
+                            <div class="form-input">
+                                <label>Confirm Password</label>
+                                <input type="password" name="password" id="pass2" placeholder="Minimum 6 characters"
+                                    required="" />
+                            </div>
+                            <div>
+                                <label class="check-remember container">
+                                    <input type="checkbox" id="check" class="form-check" />
+                                    <span class="checkmark"></span>
+                                    <p class="privacy-policy"><a href="../../assets/websites-privacy-cookie-policy.pdf" target="new">I agree to the Privacy Policy of Deen Services Consults</a></p>
+                                </label>
+                                <div class="clear"></div>
+                            </div>
+                                                       
+                            <button class="btn btn-client-process" type="submit" name="submit" id="submit" disabled>Signup Now</button>
+                            <div class="clear"></div>
+                            <p class="form_acunt text-center"><a href="{{@BASE}}/client">Already have account? Login Now</a> | <a href="../../">Back to home page</a></p>
+
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery-migrate.min.js"></script>
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+
+	<script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!-- move top -->
+	<button onclick="topFunction()" id="movetop" title="Go to top">
+		<span class="fa fa-angle-up"></span>
+	</button>
+	<script>
+		// When the user scrolls down 20px from the top of the document, show the button
+		window.onscroll = function () {
+			scrollFunction()
+		};
+
+		function scrollFunction() {
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				document.getElementById("movetop").style.display = "block";
+			} else {
+				document.getElementById("movetop").style.display = "none";
+			}
+		}
+
+		// When the user clicks on the button, scroll to the top of the document
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+	</script>
+	<!-- /move top -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            $('#check').click(function() {
+                if ($(this).is(':checked')) {
+                    $('#submit').removeAttr('disabled');
+                } else {
+                    $('#submit').attr('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

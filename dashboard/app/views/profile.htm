@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html class="no-js">
+
+  <head>
+    <title>{{@business}}</title>
+
+    <!-- META SECTION -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->        
+    <link rel="stylesheet" href="{{@BASE}}/{{@ASSETS}}css/styles.css?v=1.0.3">
+    <!-- EOF CSS INCLUDE -->
+    
+    <style>
+        .coc_form {
+            margin:auto;
+            padding-top:20px;
+            border:1px solid #EBEBEB;
+            box-shadow:#999 2px;
+            font-family:Myriad Pro;
+            background-image:url(images/bg.jpg) !important;
+            -webkit-background-size: cover !important;
+            -moz-background-size: cover !important;
+            -o-background-size: cover !important;
+            background-size: cover !important;
+            width: 800px;
+        }
+        .left {
+            position:absolute;
+            top:65px;
+        }
+        .cent {
+            text-align:center;
+        }
+        .footer {
+            padding:20px;
+            background:#eee;
+            text-align:center;	
+        }
+        label {
+            color:#003;
+            font-weight:bold;	
+        }
+        table{
+            width: 100%;
+            border: 0px solid black;
+        }
+        th{
+            background-color: #B3B3B3;
+            font-weight: bold;
+            border: 1px solid black;
+        }
+        tr{
+            border: 0px;
+        }
+        td{
+            border: 0px solid black;
+            border-collapse:separate;
+            border-spacing: 0px;
+            margin:0px;
+        }
+        td.content{
+            border: 1px solid black;
+        }
+        td.right{
+            border-right: 1px solid black;
+        }
+        td>table{
+            margin-top: -2px;
+        }
+        .app-home {
+            margin-left:50px;
+            margin-right:50px;
+            font-weight:bold;
+        }
+
+        .sec {
+            background:#eee;
+            margin-bottom:10px;
+            border-radius:10px;	
+            padding:10px;
+        }
+
+        .tp {
+            
+            padding-bottom:10px;
+        }
+
+        .app-code {
+            padding:7px !important; 
+            background:#000 !important; 
+            color:#FFF !important; 
+            width:100% !important;	
+        }
+        .widget-header{
+            margin-bottom:-10px;
+        }
+        @media print{    
+            .no-print, .no-print *{
+                display: none !important;
+            }
+            .coc_form {
+                background-image:url(images/bg.jpg) !important;
+                -webkit-background-size: cover !important;
+                -moz-background-size: cover !important;
+                -o-background-size: cover !important;
+                background-size: cover !important;
+            }
+            .alert{
+                display:none;
+            }
+            .page-break  { 
+                display:block; 
+                page-break-before:always;
+            }
+            table{
+                width: 100%;
+                border: 0px solid black;
+            }
+            th{
+                background-color: #B3B3B3;
+                font-weight: bold;
+                border: 1px solid black;
+            }
+            tr{
+                border: 0px;
+            }
+            td{
+                border: 0px solid black;
+                border-collapse:separate;
+                border-spacing: 0px;
+                margin:0px;
+            }
+            .content{
+                border: 1px solid black !important;
+            }
+            .right{
+                border-right: 1px solid black !important;
+            }
+            td>table{
+                margin-top: -2px;
+            }
+        }
+    </style>
+	  
+  </head>
+  <body>
+    <div class="coc_form gb-data gb-data-print">
+      <div class="cent no-print"></div>
+      <div class="cent no-print"><span style='color:#202020; font-size:18px'></span></div>
+      
+      
+      
+      
+      <div>
+        <div class="no-print">
+          <span class='btn btn-primary' ><a href='javascript:print()' style='color:#FFF'>Print Page</a></span>
+        </div>
+      </div>
+      
+      <div style="margin-top: 10px;">
+        <table>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="38%" class="content">
+                            <table>
+                                <tr>
+                                    <td width="50%" class="right">Candidate Name </td>
+                                    <td>{{@profile->names}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="content">Known As </td>
+                        <td width="38%" class="content">{{@profile->names}}</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" class="content">
+                            <table>
+                                <tr>
+                                    <td width="30%" height="70px">Address</td>
+                                    <td>{{@profile->address}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="content">Contact Number</td>
+                        <td class="content">{{@profile->phone}}</td>
+                    </tr>
+                    <tr>
+                        <td class="content">D.O.B. </td>
+                        <td class="content">{{@profile->dob}}</td>
+                    </tr>
+                    <tr>
+                        <td class="content">
+                            <table>
+                                <tr>
+                                    <td width="50%">Date of issue current DBS </td>
+                                    <td>{{@profile->profile_card.date_current_dbs}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="content">DBS number </td>
+                        <td class="content"> {{@profile->profile_card.dbs_number}}</td>
+                    </tr>
+                    <tr>
+                        <td class="content">
+                            <table>
+                                <tr>
+                                    <td width="50%">PIN if applicable  </td>
+                                    <td>{{@profile->profile_card.pin}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="content">Enhanced DBS</td>
+                        <td class="content">
+                            {{@profile->profile_card.enhance_dbs}}
+                        </td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="70%" class="content">DBS risk assessment in place as required Printable/Online :  Current Employers DBS  </td>
+                        <td class="content">Not required </td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="70%" class="content">DBS Employer Name: Deen Consult Services Ltd</td>
+                        <td class="content">Yes</td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="25%" class="content">Job Role to be Undertaken </td>
+                        <td width="30%" class="content">{{@profile->profile_card.job_role}} </td>
+                        <td class="content">ID Badge: {{@profile->profile_card.id_barge}}</td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <table>
+                                    <tr>
+                                        <td width="50%" class="right">Checks </td>
+                                        <td>Confirmed</td>
+                                    </tr>
+                                </table>
+                            </th>
+                            <th>Insert Photo Below </th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td width="55%" class="content">
+                            <table>
+                                <tr><td width="50%" class="right">Staff eligible to work in the UK: 
+                                    Passport </td> <td>
+                                        <check if="{{array_key_exists('eligibility', @profile->profile_card) && @profile->profile_card.eligibility=='on'}}">
+                                            <true>Yes✓</true>
+                                            <false>No</false>
+                                        </check>
+                                    </td></tr>
+                                <tr><td class="right">Visa (up to date)</td> <td>
+                                    <check if="{{array_key_exists('visa_eligibility', @profile->profile_card) && @profile->profile_card.visa_eligibility=='on'}}">
+                                        <true>Yes✓</true>
+                                        <false>No</false>
+                                    </check>
+                                </td></tr>
+                            </table>
+                        </td>
+                        <td rowspan="4" class="content"><img src="{{@BASE}}/{{@profile->passport}}" width="40%" /></td>
+                    </tr>
+                    <tr>
+                        <td class="content">
+                            <table>
+                                <tr><td width="50%" class="right">Confirmation of Identity:</td> <td>
+                                    <check if="{{array_key_exists('identity', @profile->profile_card) && @profile->profile_card.identity=='on'}}">
+                                        <true>Yes✓</true>
+                                        <false>No</false>
+                                    </check>
+                                </td></tr>
+                                <tr><td class="right">Birth Certificate </td> <td>
+                                    <check if="{{array_key_exists('birth_certificate', @profile->profile_card) && @profile->profile_card.birth_certificate=='on'}}">
+                                        <true>Yes✓</true>
+                                        <false>No</false>
+                                    </check>
+                                </td></tr>
+                                <tr><td class="right">Proof of Address </td> <td>
+                                    <check if="{{array_key_exists('poa', @profile->profile_card) && @profile->profile_card.poa=='on'}}">
+                                        <true>Yes✓</true>
+                                        <false>No</false>
+                                    </check>
+                                </td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content">
+                            <table>
+                                <tr><td width="50%" class="right">References received </td> <td>
+                                    <check if="{{array_key_exists('ref_recieved', @profile->profile_card) && @profile->profile_card.ref_recieved=='on'}}">
+                                        <true>Yes✓</true>
+                                        <false>No</false>
+                                    </check>
+                                </td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" class="content">
+                            <table>
+                                <tr><td width="50%" class="right">Driving License/Insurance </td> <td>
+                                    <check if="{{array_key_exists('has_driver_license', @profile->profile_card) && @profile->profile_card.has_driver_license=='on'}}">
+                                        <true>Yes✓</true>
+                                        <false>No</false>
+                                    </check>
+                                </td></tr>
+                            </table>
+                        </td>
+                    
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="50%" class="content">All required paperwork checked:  
+                            <check if="{{array_key_exists('all_papers_checked', @profile->profile_card) && @profile->profile_card.all_papers_checked=='on'}}">
+                                <true>Yes✓</true>
+                                <false>No</false>
+                            </check> </td>
+                        <td class="content">Mandatory training up to date:  
+                            <check if="{{array_key_exists('man_training_attended', @profile->profile_card) && @profile->profile_card.man_training_attended=='on'}}">
+                                <true>Yes✓</true>
+                                <false>No</false>
+                            </check>
+                        </td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="50%" class="content">Registered under the disability act:  
+                            <check if="{{array_key_exists('registered_under_disability_act', @profile->profile_card) && @profile->profile_card.registered_under_disability_act=='on'}}">
+                                <true>Yes✓</true>
+                                <false>No</false>
+                            </check>
+                        </td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <tr>
+                        <td width="50%" class="content">Staff happy to work under Deen Consult Services policies and procedures: Yes✓  </td>
+                    </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="45%">Training  </th>
+                            <th width="20%" heigth="10px"> 
+                                <table>
+                                    <tr><td>Undertaken</td></tr>
+                                    <tr><td>(Yes / No) </td></tr>
+                                </table>
+                            </th>
+                            <th>Date of Expiry  </th>
+                        </tr>
+                    </thead>
+                    <repeat group="{{@trainings}}" key="{{@key}}" value="{{@train}}">
+                        <tr>
+                            <td class="content">{{@train.name}}</td>
+                            <td class="content">{{@train.value}} </td>
+                            <td class="content">{{@train.date}}</td>
+                        </tr>
+                    </repeat>
+                    
+                </table>
+            </td></tr>
+            <tr><td style="padding: 20px;">
+                <table>
+                    <tr>
+                        <td width="20%">Form completed by:</td>
+                        <td> 
+                            <check if="{{array_key_exists('completed_by', @profile->profile_card)}}">
+                                <true>{{@profile->profile_card.completed_by}}</true>
+                            </check>
+                        </td>
+                        <td>Signature:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Position: </td>
+                        <td>
+                            <check if="{{array_key_exists('who_position', @profile->profile_card)}}">
+                                <true>{{@profile->profile_card.who_position}}</true>
+                            </check>
+                        </td>
+                        <td>Date:</td>
+                        <td>
+                            <check if="{{array_key_exists('completed_on', @profile->profile_card)}}">
+                                <true>{{@profile->profile_card.completed_on}}</true>
+                            </check>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date faxed/emailed:</td>
+                        <td colspan="3"> <check if="{{array_key_exists('date_faxed', @profile->profile_card)}}">
+                            <true>{{@profile->profile_card.date_faxed}}</true>
+                        </check></td>
+                    </tr>
+                    <tr>
+                        <td>Date received by Client:</td>
+                        <td colspan="3"> <check if="{{array_key_exists('date_recieved_client', @profile->profile_card)}}">
+                            <true>{{@profile->profile_card.date_recieved_client}}</true>
+                        </check></td>
+                    </tr>
+                </table>
+            </td></tr>
+        </table>
+        <div class="footer"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/jquery/jquery-migrate.min.js"></script>
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/vendors/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- END IMPORTANT SCRIPTS -->
+    <!-- THIS PAGE SCRIPTS ONLY -->
+    
+    <!-- //END THIS PAGE SCRIPTS ONLY -->
+    <!-- TEMPLATE SCRIPTS -->
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/app.js"></script>
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/plugins.js"></script>
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/demo.js"></script>
+    <script type="text/javascript" src="{{@BASE}}/{{@ASSETS}}js/settings.js"></script>
+  </body>
+</html>
