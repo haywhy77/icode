@@ -23,7 +23,7 @@ Author URL: http://w3layouts.com
     --bs-white: #fff;
     --bs-gray: #6c757d;
     --bs-gray-dark: #343a40;
-    --bs-primary: #0d6efd;
+    --bs-primary: #ffc107;
     --bs-secondary: #6c757d;
     --bs-success: #198754;
     --bs-info: #0dcaf0;
@@ -17871,7 +17871,7 @@ fieldset:disabled .btn {
 }
 
 :root {
-    --primary-color: #2164f4;
+    --primary-color: #ffc107;
     --secondary-color: #ffd900;
     --font-color: #555;
     --bg-color: #fff;
@@ -19555,7 +19555,7 @@ section.w3l-features-grids {
 
 .w3l-features-grids .grids-1.box-wrap {
     background: var(--bg-color);
-    padding: 60px 40px;
+    padding: 15px 15px;
     text-align: center;
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
@@ -19936,7 +19936,7 @@ ul.w3l-right-book li span {
 .w3grids-right-info {
     background: var(--footer-bg);
     height: 100%;
-    padding: 8em 8em;
+    padding: 4em 4em;
     border-radius: 0px 4px 4px 0px;
     align-items: center;
     display: grid;
