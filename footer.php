@@ -9,14 +9,14 @@
 
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <h4 class="mt-3">Start Work With iCode Resources Today</h4>
+                        <h4 class="mt-3">Subscribe With Us</h4>
                     </div>
                 </div>
                 <div class="row footer-p mt-5 pt-lg-4">
                     <div class="col-lg-4 col-md-6 pe-lg-5">
                         <div class="column">
                             <h3>Phone</h3>
-                            <p><a href="tel:+(234) 703 3631 4495">+(234) 703 3631 4495</a></p>
+                            <p><a href="tel:+2347036314495">+234 703 631 4495</a></p>
                         </div>
 
                         <div class="column mt-lg-5 mt-4">
@@ -34,14 +34,13 @@
                         <div class="column mt-lg-5 mt-4">
                             <h3>Follow</h3>
                             <ul class="social">
-                                <li><a href="#facebook"><i class="fab fa-facebook-f"></i></a>
+                                <li><a href="https://www.facebook.com/icoderesources" target="_blank"><i class="fab fa-facebook-f"></i></a>
                                 </li>
-                                <li><a href="#linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                <li><a href="https://twitter.com/imoleayomic" target="_blank"><i class="fab fa-twitter"></i></a>
                                 </li>
-                                <li><a href="#twitter"><i class="fab fa-twitter"></i></a>
+                                <li><a href="https://www.instagram.com/icoderesources" target="_blank"><i class="fab fa-instagram"></i></a>
                                 </li>
-                                <li><a href="#google"><i class="fab fa-google-plus-g"></i></a>
-                                </li>
+                                <li><a href="#linkedin"><i class="fab fa-linkedin-in"></i></a></li>
 
                             </ul>
                         </div>

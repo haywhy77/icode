@@ -1,12 +1,5 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
--->
 <!doctype html>
 <html lang="en">
-
-
-<!-- Mirrored from p.w3layouts.com/demos_new/template_demo/03-03-2022/finagency-liberty-demo_Free/209759279/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 07 Jul 2025 12:50:33 GMT -->
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -25,7 +18,7 @@ Author URL: http://w3layouts.com
     <header id="site-header" class="fixed-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light stroke py-lg-0">
-                <a class="navbar-brand pe-xl-5 pe-lg-4" href="index.html">
+                <a class="navbar-brand pe-xl-5 pe-lg-4" href="index.php">
                         <img src="assets/images/icode.png" alt="icode Logo" class="img-fluid logo">
                     </a>
                 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,50 +28,25 @@ Author URL: http://w3layouts.com
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-lg-auto my-2 my-lg-0 navbar-nav-scroll">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link" href="about.php">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="services.html">Services</a>
+                            <a class="nav-link" href="services.php">Services</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="services.html">Products</a>
+                            <a class="nav-link" href="services.php">Products</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="services.html">Academy</a>
+                            <a class="nav-link" href="services.php">Academy</a>
                         </li>
 
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Blog <i class="fas fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-2" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item pt-2" href="blog.html">Blog Without Sidebar</a></li>
-                                <li><a class="dropdown-item" href="blog-left.html">Blog With Left Sidebar </a></li>
-                                <li><a class="dropdown-item" href="blog-right.html">Blog With Right Sidebar</a></li>
-                                <li><a class="dropdown-item" href="blog-left-single.html">Blog Single Left Sidebar</a></li>
-                                <li><a class="dropdown-item" href="blog-right-single.html">Blog Single Right Sidebar </a></li>
-                                <li><a class="dropdown-item" href="blog-single.html">Blog Single Post</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#Pages" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Pages <span class="fa fa-angle-down ms-1"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-
-                                <li><a class="dropdown-item" href="error.html">404 Page</a></li>
-                                <li><a class="dropdown-item" href="email.html">Email Page</a></li>
-                                <li><a class="dropdown-item" href="elements.html">Elements</a></li>
-                                <li><a class="dropdown-item" href="landing.html">Landing Page</a></li>
-                            </ul>
-                        </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link" href="contact.php">Contact</a>
                         </li>
 
                     </ul>
@@ -135,7 +103,7 @@ Author URL: http://w3layouts.com
                         <div class="banner-info header-hero-19">
                             <p class="w3hny-tag">Providing brilliant ideas for your business.</p>
                             <h3 class="title-hero-19">Your ideas realized for the real world.</h3>
-                            <a href="about.html" class="btn btn-style btn-primary mt-4">Read More</a>
+                            <a href="about.php" class="btn btn-style btn-primary mt-4">Read More</a>
 
                         </div>
                     </div>
@@ -148,7 +116,7 @@ Author URL: http://w3layouts.com
 
                             <p class="w3hny-tag">The ideas that make customers go wow.</p>
                             <h3 class="title-hero-19">Sharing your company with the world.</h3>
-                            <a href="about.html" class="btn btn-style btn-primary mt-4">Read More</a>
+                            <a href="about.php" class="btn btn-style btn-primary mt-4">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +128,7 @@ Author URL: http://w3layouts.com
                             <p class="w3hny-tag">Providing brilliant ideas for your business.</p>
                             <h3 class="title-hero-19">Your ideas realized for the real world.</h3>
 
-                            <a href="about.html" class="btn btn-style btn-primary mt-4">Read More</a>
+                            <a href="about.php" class="btn btn-style btn-primary mt-4">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +140,7 @@ Author URL: http://w3layouts.com
 
                             <p class="w3hny-tag">The ideas that make customers go wow.</p>
                             <h3 class="title-hero-19">Sharing your company with the world.</h3>
-                            <a href="about.html" class="btn btn-style btn-primary mt-4">Read More </a>
+                            <a href="about.php" class="btn btn-style btn-primary mt-4">Read More </a>
                         </div>
                     </div>
                 </div>
@@ -203,7 +171,7 @@ Author URL: http://w3layouts.com
                     <p class="mt-3 pe-lg-5">Since 2014, our award-winning team has partnered with clients across industries to build everything from sleek websites to complex enterprise systems. We don't just write code — we craft solutions that solve problems, create opportunities, and move businesses forward.</p>
                     <p class="mt-3 pe-lg-5">Let's work together to build something that not only works — but wins.</p>
                     <div class="w3banner-content-btns">
-                        <a href="contact.html" class="btn btn-style btn-primary mt-lg-5 mt-4">Get Free Consultation</a>
+                        <a href="contact.php" class="btn btn-style btn-primary mt-lg-5 mt-4">Get Free Consultation</a>
 
                     </div>
                 </div>
@@ -475,7 +443,7 @@ Author URL: http://w3layouts.com
                     <p class="my-3">In today's rapidly evolving digital landscape, there is a significant demand for skilled IT professionals. Unfortunately, many aspiring individuals face challenges in accessing practical and intensive training that can equip them with the necessary skills. Recognizing this gap, iCode Academy has emerged as a solution, offering comprehensive online training programs designed to provide hands-on experience and foster expertise in the field of Information Technology.
                     </p>
                     <p class="my-3">Join any of our online training programs today and unlock your potential in the world of Information Technology.</p>
-                    <a href="about.html" class="btn btn-style btn-primary mt-4">See Available Courses</a>
+                    <a href="about.php" class="btn btn-style btn-primary mt-4">See Available Courses</a>
                 </div>
             </div>
         </div>
